@@ -23,6 +23,7 @@
         <link href="css/demo_table.css" rel="stylesheet" type="text/css"/>
         <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <link href="css/acc.css" rel="stylesheet" type="text/css"/>
+        <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified CSS -->
         <script src="js/jquery-1.12.4.js" type="text/javascript"></script>
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
@@ -30,7 +31,7 @@
         <script src="js/materialize.min.js" type="text/javascript"></script>
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/acc.js" type="text/javascript"></script>
-        <script src="js/sweetalert2.common.js" type="text/javascript"></script>
+        <script src="js/sweetalert2.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -82,6 +83,9 @@
                         <div class="card-panel">
                             <script type="text/javascript" charset="utf-8">
                                 var stud_id;
+                                var pays;
+                                var total;
+
                                 $(document).ready(function () {
                                     var table = $("#assigned_students").DataTable({
                                         "bProcessing": false,
@@ -103,15 +107,16 @@
 
 
                                     $('#assigned_students tbody').on('click', 'tr', function () {
+
                                         var data = table.row(this).data();
                                         //alert('You clicked on ' + data.f_name + '\'s row');
-
+                                        stud_id = data.stud_id;
                                         document.getElementById('acc_stud_id').value = data.stud_id;
                                         document.getElementById('atud_first_name').value = data.f_name;
                                         document.getElementById('stud_last_name').value = data.l_name;
 
 
-                                         //AJAX FOR GETTING STUDENT SCHOOL
+                                        //AJAX FOR GETTING STUDENT SCHOOL
                                         $.get('AccGetSchoolDetails?id=' + data.stud_id, function (responseJson) {
 
                                             if (responseJson != null) {
@@ -129,10 +134,12 @@
                                                     rowNew.children().eq(4).text(value['third']);
                                                     rowNew.children().eq(5).text(value['total']);
                                                     rowNew.appendTo(table1);
+
+                                                    total = value['total'];
                                                 });
                                             }
                                         });
-                                        
+
                                         //AJAX FOR GETTING STUDENT SPONSOR
                                         $.get('AccGetSponsorsDetails?id=' + data.stud_id, function (responseJson) {
 
@@ -143,22 +150,110 @@
 
                                                 $.each(responseJson, function (key, value) {
 
-                                                    var rowNew = $('<tr><td></td><td></td><td></td><td></td></tr>');
+                                                    var rowNew = $('<tr><td></td><td></td><td></td><td></td><td></td></tr>');
                                                     rowNew.children().eq(0).text(value['sponsor_id']);
                                                     rowNew.children().eq(1).text(value['name']);
-                                                    rowNew.children().eq(2).text(value['commits']);
-                                                    rowNew.children().eq(3).text(value['payments']);
-                                                   
+                                                    rowNew.children().eq(2).text(value['payments']);
+
                                                     rowNew.appendTo(table1);
+
+                                                    pays = value['payments'];
                                                 });
                                             }
                                         });
 
                                     });
 
+                                    $('#alocate_btn').click(function () {
+                                        var amount = $("#amount_school").val();
+                                        var upkeep = $("#amount_upkeep").val();
+                                        var others = $("#amount_others").val();
+
+                                        if (amount !== "") {
+                                            if (upkeep !== "") {
+
+                                                if (others !== "") {
+
+
+                                                    //all is good compare amount to school
+                                                    if ((Number(amount) + Number(upkeep) + Number(others)) > pays) {
+                                                        swal(
+                                                                'Oops...',
+                                                                'Amount cannot be greater than sponsor total payments',
+                                                                'error'
+                                                                );
+                                                    } else {
+
+                                                        if (Number(amount) > total) {
+                                                            swal(
+                                                                    'Oops...',
+                                                                    'Amount allocated to fees cannot be greater than the students School fees',
+                                                                    'error'
+                                                                    );
+                                                        } else {
+
+                                                            swal({
+                                                                title: 'Confirm before submitting',
+                                                                text: "You won't be able to revert this!",
+                                                                type: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#3085d6',
+                                                                cancelButtonColor: '#d33',
+                                                                confirmButtonText: 'Confirm'
+                                                            }).then(function () {
+                                                                //all is good perfom ajax
+                                                                $.ajax({
+                                                                    type: 'POST',
+                                                                    data: $("#allocation_table").serialize(),
+                                                                    url: "AccStudentAllocation?id=" + stud_id,
+                                                                    success: function (result) {
+                                                                        // $('#admin_feedb').html(result).show().delay(3000).fadeOut('slow');
+                                                                        swal(
+                                                                                'Server Feedback',
+                                                                                result,
+                                                                                'info'
+                                                                                );
+                                                                    },
+                                                                    error: function (result) {
+                                                                        swal(
+                                                                                'Oops...',
+                                                                                result,
+                                                                                'error'
+                                                                                );
+                                                                    }
+
+                                                                });
+                                                            });
+                                                        }
+                                                    }
+
+                                                } else {
+                                                    swal(
+                                                            'Oops...',
+                                                            'Enter amount to allocate to others',
+                                                            'error'
+                                                            );
+                                                }
+
+                                            } else {
+                                                swal(
+                                                        'Oops...',
+                                                        'Enter amount to allocate to upkeep',
+                                                        'error'
+                                                        );
+                                            }
+                                        } else {
+                                            swal(
+                                                    'Oops...',
+                                                    'Enter amount to allocate to school',
+                                                    'error'
+                                                    );
+                                            return false;
+                                        }
+                                    });
                                 });
 
-                           
+
                             </script>
 
                             <div id="dynamic">
@@ -211,116 +306,113 @@
 
         <!-- Modal Structure For assigning accounts-->
         <div id="modal45" class="modal modal-lg modal-fixed-footer" data-backdrop="static" data-keyboard="false" style="height: 90%; width: 80%; max-height: 100%; top: 5%; bottom: 5%;">
-            <form id="selcted_student_form">
-                <div class="modal-content">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input type="hidden" id="acc_stud_id">
-                            <input disabled placeholder="Placeholder" id="atud_first_name" type="text">
-                            <label for="atud_first_name" class="active">First Name</label>
+
+            <div class="modal-content">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="hidden" id="acc_stud_id">
+                        <input disabled placeholder="Placeholder" id="atud_first_name" type="text">
+                        <label for="atud_first_name" class="active">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input disabled id="stud_last_name" type="text" >
+                        <label for="stud_last_name" class="active">Last Name</label>
+                    </div>
+                </div>
+
+                <script type="text/javascript" charset="utf-8">
+
+
+
+                </script>
+
+                <div class="row">
+                    <div class="col s12">
+                        <div class="col s6">
+                            <div class="row alert grey white-text">
+                                <h6>SCHOOL INFORMATION</h6>
+                            </div>
+                            <div class="row">
+                                <table  class="table centered striped" id="school_table">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name</th>
+                                            <th>First Term</th>
+                                            <th>Second Term</th>
+                                            <th>Third Term</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                        <div class="input-field col s6">
-                            <input disabled id="stud_last_name" type="text" >
-                            <label for="stud_last_name" class="active">Last Name</label>
+                        <div class="col s6">
+
+                            <div class="row alert grey white-text">
+                                <h6>SPONSOR INFORMATION</h6>
+                            </div>
+                            <div class="row">
+                                <table  class="table centered striped" id="adminTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Sponsor id</th>
+                                            <th>Sponsor Name</th>
+
+                                            <th>Sponsor Payments</th>
+
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                            </div>
+
+
                         </div>
                     </div>
 
-                    <script type="text/javascript" charset="utf-8">
-
-
-
-                    </script>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="col s6">
-                                <div class="row alert grey white-text">
-                                    <h6>SCHOOL INFORMATION</h6>
-                                </div>
-                                <div class="row">
-                                    <table  class="table centered striped" id="school_table">
-                                        <thead>
-                                            <tr>
-                                                <th>id</th>
-                                                <th>Name</th>
-                                                <th>First Term</th>
-                                                <th>Second Term</th>
-                                                <th>Third Term</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col s6">
-
-                                <div class="row alert grey white-text">
-                                    <h6>SPONSOR INFORMATION</h6>
-                                </div>
-                                <div class="row">
-                                    <table  class="table centered striped" id="adminTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Sponsor id</th>
-                                                <th>Sponsor Name</th>
-                                                <th>Sponsor Commitments</th>
-                                                <th>Sponsor Payments</th>
-                                            </tr>
-                                        </thead>
-
-                                    </table>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
+                </div>
+                <div class="row">
+                    <form id="allocation_table">
                         <div class="col s6 offset-l3">
                             <div class="row alert alert-info">
                                 <h6>Allocation details</h6>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="amount_school" type="number" class="">
+                                    <input name="amount_school" id="amount_school" type="number" class="">
                                     <label for="amount_school">Amount to School Fees</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="amount_upkeep" type="number" class="">
+                                    <input name="amount_upkeep" id="amount_upkeep" type="number" class="">
                                     <label for="number">Amount to upkeep</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="amount_others" type="number" class="">
+                                    <input name="amount_others" id="amount_others" type="number" class="">
                                     <label for="email">Amount to others</label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col s6 offset-l4">
-                            <div class="row">
-                                <button style="width: 50%;" class="btn btn-large waves-effect waves-light" type="button" name="action">Save
+                            <div class="row col s6 offset-l4">
+                                <button id="alocate_btn" style="width: 50%;" class="btn btn-large waves-effect waves-light" type="button" name="action">Save
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>
-                            <div class="row">
+                            <div class="row col s6 offset-l4">
                                 <a href="#!" style="width: 50%;" class=" btn-large modal-action modal-close waves-effect waves-green btn-flat ">close</a>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
 
-                    <!--            <div class="modal-footer">
-                                    <button id="btn_submit_report" class="btn waves-effect waves-light" type="button" name="action">Submit
-                                        <i class="material-icons right">send</i> </button>
-                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">close</a>
-                                </div>-->
-            </form>
-        </div>
+                <div class="row">
+                    <div class="col s6 offset-l4">
+
+                    </div>
+                </div>
+            </div>
     </body>
 </html>

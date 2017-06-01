@@ -108,6 +108,10 @@
         <servlet-name>AccGetSponsorsDetails</servlet-name>
         <servlet-class>Controla.AccGetSponsorsDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccStudentAllocation</servlet-name>
+        <servlet-class>Controla.AccStudentAllocation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -215,6 +219,10 @@
     <servlet-mapping>
         <servlet-name>AccGetSponsorsDetails</servlet-name>
         <url-pattern>/AccGetSponsorsDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccStudentAllocation</servlet-name>
+        <url-pattern>/AccStudentAllocation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

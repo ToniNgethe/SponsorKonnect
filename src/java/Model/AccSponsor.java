@@ -15,15 +15,25 @@ public class AccSponsor {
     private String name;
     private double commits;
     private double payments;
+    private double bal;
 
-    public AccSponsor(String sponsor_id, String name, double commits, double payments) {
+    public AccSponsor(String sponsor_id, String name, double commits, double payments, double bal) {
         this.sponsor_id = sponsor_id;
         this.name = name;
         this.commits = commits;
         this.payments = payments;
+        this.bal = bal;
     }
 
     public AccSponsor() {
+    }
+
+    public double getBal() {
+        return bal;
+    }
+
+    public void setBal(double bal) {
+        this.bal = bal;
     }
 
     public String getSponsor_id() {

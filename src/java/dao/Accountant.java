@@ -155,47 +155,47 @@ public class Accountant {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                
+
                 AccSponsor accSponsor = new AccSponsor();
-                
+
                 //get sponsor id
                 accSponsor.setSponsor_id(rs.getString("sponsor"));
-                
-                
+
                 String q1 = "SELECT name FROM Sponsor WHERE sponsor_id = ?";
                 PreparedStatement p1 = conn.prepareStatement(q1);
                 p1.setString(1, rs.getString("sponsor"));
-                
+
                 ResultSet r1 = p1.executeQuery();
                 if (r1.next()) {
-                    
+
                     //get sponsor name
                     accSponsor.setName(r1.getString("name"));
-                    
+
                     String q2 = "SELECT SUM(amount) FROM sponsor_commits WHERE sponsor_id = ?";
                     PreparedStatement p2 = conn.prepareStatement(q2);
                     p2.setString(1, rs.getString("sponsor"));
                     ResultSet rs2 = p2.executeQuery();
                     while (rs2.next()) {
-                       
+
                         //get commits
                         accSponsor.setCommits(rs2.getInt(1));
                     }
-                    
-                    
+
                     String q3 = "SELECT SUM(amount) FROM sponsor_payments WHERE sponsor_id = ?";
                     PreparedStatement p3 = conn.prepareStatement(q3);
                     p3.setString(1, rs.getString("sponsor"));
                     ResultSet r3 = p3.executeQuery();
                     while (r3.next()) {
-                       
+
                         //get commits
-                        accSponsor.setCommits(r3.getInt(1));
+                        accSponsor.setPayments(r3.getInt(1));
                     }
-                    
+
+                    accSponsor.setBal(accSponsor.getPayments() - accSponsor.getCommits());
+
                     myList.add(accSponsor);
                 }
-                
+
             }
 
         } catch (SQLException ex) {
@@ -203,5 +203,56 @@ public class Accountant {
         }
 
         return myList;
+    }
+
+    //check if allocated for this year...
+    public boolean isAllocated(String stud_id) {
+        boolean allocated = false;
+        String query = "SELECT * FROM student_allocation WHERE stud_id = ?";
+
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, stud_id);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                allocated = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return allocated;
+    }
+
+    public boolean allocateStudents(String id, String amount, String upkeep, String others) {
+        boolean success = false;
+
+        java.util.Date today = new java.util.Date();
+        java.sql.Date t = new java.sql.Date(today.getTime());
+        //INSERT INTO `student_allocation`(`id`, `stud_id`, `school`, `upkeep`, `others`, `date`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
+        String query = "INSERT INTO `student_allocation`(`stud_id`, `school`, `upkeep`, `others`, `date`) VALUES ( ?, ?, ?, ?,?)";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            pst.setDouble(2, Double.valueOf(amount));
+            pst.setDouble(3, Double.valueOf(upkeep));
+            pst.setDouble(4, Double.valueOf(others));
+            pst.setDate(5,t);
+            
+            int a = pst.executeUpdate();
+            
+            if (a>0) {
+                success = true;
+            }
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return success;
     }
 }
