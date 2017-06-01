@@ -21,21 +21,29 @@
         <!-- Compiled and minified CSS -->
         <script src="js/jquery.min.js" type="text/javascript"></script>
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
+        <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <link href="iconfont/material-icons.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified JavaScript -->
         <script src="js/materialize.min.js" type="text/javascript"></script>
+        <script src="js/sweetalert2.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
     </head>
     <body>
 
         <% StudentModel studentModel = null;
+            String id = null;
+            String email = null;
+            String pass = null;
+
             try {
 
                 if (session.getAttribute("STUDENT_MODEL") == null || session.getAttribute("STUDENT_MODEL") == "") {
                     response.sendRedirect("login.jsp");
                 } else {
                     studentModel = (StudentModel) session.getAttribute("STUDENT_MODEL");
-
+                    id = request.getParameter("id");
+                    email = studentModel.getEmail();
+                    pass = studentModel.getPass();
                     if (studentModel.getEmail() == null) {
                         response.sendRedirect("login.jsp");
                     }
@@ -53,16 +61,12 @@
         <nav>
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo" style="margin-top: -3%;" > <img src="img/sponsor_logo.png" alt=""/></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= studentModel.getEmail()%> </a></li>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">         
+                    <li><a href="./StudentLogout">Log Out</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!--                logout-->
-        <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#!">Log out</a></li>
-        </ul>
 
         <div class="container" style="margin-top: 1%;">
             <div class="row center">
@@ -70,10 +74,10 @@
                     <div class="">
                         <div class="">
 
-                            <img src="ImageServlet?id=<%=request.getParameter("id")%>" class="circle" alt="" style="width: 170px; height: 170px;"/>
-                            <p class="teal-text text-lighten-1"><%= studentModel.getEmail()%></p>
+                            <img src="ImageServlet?id=<%=id%>" class="circle" alt="" style="width: 170px; height: 170px;"/>
+                            <p class="teal-text text-lighten-1"><%= email%></p>
 
-                            <div id="continur_msg" style="margin-top: 100dp;"><%= studentModel.getPass()%></div>
+                            <div id="continur_msg" style="margin-top: 10px;"><%= pass%></div>
                         </div>
                         <div class="" style="margin-top: 2%;">
                             <ul class="tabs tabs-fixed-width">
@@ -98,14 +102,7 @@
                                                     <div class="card-content">
                                                         <div class="row">
                                                             <div class="input-field">
-
-                                                                <%
-                                                                    if (request.getParameter("id") == null) {
-                                                                        response.sendRedirect("login.jsp");
-                                                                    }
-                                                                %>
-
-                                                                <input name="id" id="stud_surname" type="hidden" value="<%=request.getParameter("id")%>" />
+                                                                <input name="id" id="stud_surname" type="hidden" value="<%=id%>" />
                                                                 <input required="true" name="stud_surname" id="stud_surname" type="text" class="validate" >
                                                                 <label for="surname">Surnanme </label>
                                                             </div>
@@ -132,12 +129,6 @@
                                                                 <label>Gender</label>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="input-field  ">
-                                                                <input required="true" name="mobile" id="number" type="number" class="validate">
-                                                                <label data-error="Not a number" for="number">Phone Number</label>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,6 +138,12 @@
                                                         <div class="row">
 
                                                             <div class="row">
+                                                                <div class="input-field  ">
+                                                                    <input required="true" name="mobile" id="mobile" type="text" placeholder="(072) 666-6666">
+                                                                    <label data-error="Not a number" for="mobile">Phone Number</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
                                                                 <div class="input-field col s12">
                                                                     <input required="true" name="famLocation" id="fam_loc" type="text" class="validate">
                                                                     <label for="fam_loc">Family Location</label>
@@ -154,27 +151,8 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="input-field col s12">
-                                                                    <input required="true" name="stud_age" id="Age" type="number" class="validate">
-                                                                    <label data-error="Not a number" for="Age">Your Age</label>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="input-field col s12">
-
-                                                                    <select name="fam_status">
-                                                                        <option value="" disabled selected>Choose your option</option>
-                                                                        <option value="Stable">Stable</option>
-                                                                        <option value="Unstable">Unstable</option>
-
-                                                                    </select>
-                                                                    <label>Family Status</label>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="input-field col s12">
-                                                                    <input required="true" name="dob" id="dob" type="date" class="datepicker" placeholder="DOB">
+                                                                    <input required="true" name="dob" id="dob" type="date" class="datepicker" >
+                                                                    <label for="fam_loc" class="active">Date of birth</label>
                                                                 </div>
                                                             </div>
 
@@ -205,7 +183,7 @@
                                                     <div class="card-content">
                                                         <div class="row">
                                                             <div class="input-field">
-                                                                <input name="p_id" id="stud_surname" type="hidden" value="<%=request.getParameter("id")%>" />
+                                                                <input name="p_id" id="stud_surname" type="hidden" value="<%=id%>" />
                                                                 <input name="father_name" required="true" id="father_name" type="text" class="validate">
                                                                 <label for="father_name">Father Name </label>
                                                             </div>
@@ -218,8 +196,8 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="input-field  ">
-                                                                <input name="f_mobile" required="true" id="last_name" type="number" class="validate">
-                                                                <label data-error="Not a number" for="last_name">Mobile Number</label>
+                                                                <input name="f_mobile" required="true" id="f_mobile" type="text" placeholder="(072) 666-6666" >
+                                                                <label  data-error="Not a number" for="f_mobile">Mobile Number</label>
                                                             </div>
                                                         </div>
 
@@ -243,7 +221,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="input-field col s12">
-                                                                <input name="m_mobile" required="true" id="m_mobile" type="number" class="validate">
+                                                                <input name="m_mobile" required="true" id="m_mobile" type="text" placeholder="(072) 666-6666">
                                                                 <label data-error="Not a number " for="m_mobile">Mobile Number</label>
                                                             </div>
                                                         </div>
@@ -285,7 +263,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="input-field col s12">
-                                                                <input name="g_id" id="stud_surname" type="hidden" value="<%=request.getParameter("id")%>" />
+                                                                <input name="g_id" id="stud_surname" type="hidden" value="<%=id%>" />
                                                                 <input name="g_name" id="g_name" type="text" class="validate">
                                                                 <label for="g_name">Gurdian Name</label>
                                                             </div>
@@ -298,7 +276,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="input-field col s12">
-                                                                <input name="g_number" id="g_number" type="number" class="validate">
+                                                                <input name="g_number" id="g_number" type="text" placeholder="(072) 666-6666">
                                                                 <label data-error="Not a number" for="g_number">Gurdian Number</label>
                                                             </div>
                                                         </div>
@@ -331,7 +309,7 @@
                                                 <div class="card-content">
                                                     <div class="row">
                                                         <div class="input-field">
-                                                            <input name="s_id" id="stud_surname" type="hidden" value="<%=request.getParameter("id")%>" />
+                                                            <input name="s_id" id="stud_surname" type="hidden" value="<%=id%>" />
                                                             <input name="sibling_name" id="sibling_name" type="text" class="validate">
                                                             <label for="sibling_name">Sibling Full Name </label>
                                                         </div>
@@ -351,7 +329,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field">
-                                                            <input name="sibling_school" id="sibling_school" type="text" class="validate">
+                                                            <input name="sibling_school" id="sibling_school" type="text" class="validate" placeholder="Write null if not in school">
                                                             <label for="sibling_school">Sibling School</label>
                                                         </div>
                                                     </div>
@@ -401,7 +379,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <input name="student_id" id="stud_surname" type="hidden" value="<%=request.getParameter("id")%>" />
+                                                <input name="student_id" id="stud_surname" type="hidden" value="<%=id%>" />
                                             </div>
                                             <div id="selcetdSchoolInfo" class="row">
 

@@ -39,21 +39,20 @@ public class StudentPersonalServlet extends HttpServlet {
         String gender = request.getParameter("stud_gender");
         String number = request.getParameter("mobile");
         String fam_location = request.getParameter("famLocation");
-        String age = request.getParameter("stud_age");
-        String fam_status = request.getParameter("fam_status");
+      
         String dob = request.getParameter("dob");
 
         if (!stud_id.isEmpty()) {
-            if (s_name.isEmpty() || f_name.isEmpty() || l_name.isEmpty() || number.isEmpty() || fam_location.isEmpty() || age.isEmpty() || fam_status.isEmpty() || dob.isEmpty()) {
+            if (s_name.isEmpty() || f_name.isEmpty() || l_name.isEmpty() || number.isEmpty() || fam_location.isEmpty()  || dob.isEmpty()) {
                 out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >Field(s) Empty</div>");
             } else {
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     //convert string input to date
                     java.util.Date result = format.parse(dob);
 
-                    StudentPersonalModel studentPersonalModel = new StudentPersonalModel(stud_id, s_name, f_name, l_name, gender, number, fam_location, fam_status, result, age);
+                    StudentPersonalModel studentPersonalModel = new StudentPersonalModel(stud_id, s_name, f_name, l_name, gender, number, fam_location, null, result, null);
                     Student std = new Student();
 
                     //check if details do exist

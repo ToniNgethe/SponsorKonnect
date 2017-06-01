@@ -163,13 +163,35 @@ function getAdmin() {
     return true;
 }
 
-$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-});
+//$('.datepicker').pickadate({
+//    selectMonths: true, // Creates a dropdown to control month
+//    selectYears: 15 // Creates a dropdown of 15 years to control year
+//});
 
 //submit personal details
 $(document).ready(function () {
+
+    document.getElementById('mobile').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+    document.getElementById('f_mobile').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+    document.getElementById('m_mobile').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+    document.getElementById('g_number').addEventListener('input', function (e) {
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+    window.picker = $('.datepicker').pickadate({
+
+        selectYears: 26, // Creates a dropdown of 15 years to control year
+        format: 'dd-mm-yyyy'
+    });
 
     $('#continur_msg').show().delay(6000).fadeOut('slow');
     $('#login_bg').show().delay(2000).fadeOut('slow');
@@ -198,7 +220,7 @@ $(document).ready(function () {
 
     //selected school
     $('#selectedSchool').change(function () {
-        
+
         $('#schoolDetails').show();
         var value = $(this).val();
 
@@ -315,111 +337,234 @@ $(document).ready(function () {
 
 
     $('#save_personal').click(function (event) {
+
         event.preventDefault();
+        swal({
 
-        $.ajax({
-            type: 'POST',
-            data: $("#personalDetailsTable").serialize(),
-            url: "StudentPersonalServlet",
-            success: function (result) {
-                $('#err_p').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#personalDetailsTable").serialize(),
+                url: "StudentPersonalServlet",
+                success: function (result) {
+                    // $('#err_p').html(result).show().delay(3000).fadeOut('slow');
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Oops...',
+                            result,
+                            'error'
+                            );
+                }
 
+            });
         });
+
     });
 
 //submit parent details
     $('#btn_saveparents').click(function (event) {
         event.preventDefault();
 
-        $.ajax({
-            type: 'POST',
-            data: $("#parentalDetails").serialize(),
-            url: "StudentParentalServlets",
-            success: function (result) {
-                $('#parent_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+        swal({
 
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#parentalDetails").serialize(),
+                url: "StudentParentalServlets",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Oops...',
+                            result,
+                            'error'
+                            );
+                }
+
+            });
         });
+
     });
 
     //submit gurdian details
     $('#btn_gurdian').click(function (event) {
         event.preventDefault();
 
-        $.ajax({
-            type: 'POST',
-            data: $("#studentGurdianDetails").serialize(),
-            url: "StudentGurdianServlet",
-            success: function (result) {
-                $('#g_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+        swal({
 
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#studentGurdianDetails").serialize(),
+                url: "StudentGurdianServlet",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
     });
 
 //submit sib details
     $('#btn_sibling').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#siblingTable").serialize(),
-            url: "StudentSiblingServlet",
-            success: function (result) {
-                $('#s_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+        swal({
+
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#siblingTable").serialize(),
+                url: "StudentSiblingServlet",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
     });
 
     //submit skul details
     $('#btn_school').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#schoolInfo").serialize(),
-            url: "StudentSchoolServlet?action=new",
-            success: function (result) {
-                $('#skul_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+        swal({
+
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#schoolInfo").serialize(),
+                url: "StudentSchoolServlet?action=new",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
     });
 
 
     //submit selected school info
     $('#btnSelectedSchool').click(function (event) {
         event.preventDefault();
-        
-        $.ajax({
-            type: 'POST',
-            data: $("#selectedSchoolForm").serialize(),
-            url: "StudentSchoolServlet?action=old",
-            success: function (result) {
-                $('#selectedFB').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+
+        swal({
+
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#selectedSchoolForm").serialize(),
+                url: "StudentSchoolServlet?action=old",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
-    });
 
+
+    });
 
 }
 );
