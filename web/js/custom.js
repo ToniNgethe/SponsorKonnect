@@ -171,27 +171,7 @@ function getAdmin() {
 //submit personal details
 $(document).ready(function () {
 
-    document.getElementById('mobile').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-    document.getElementById('f_mobile').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-    document.getElementById('m_mobile').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-    document.getElementById('g_number').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    });
-    window.picker = $('.datepicker').pickadate({
 
-        selectYears: 26, // Creates a dropdown of 15 years to control year
-        format: 'dd-mm-yyyy'
-    });
 
     $('#continur_msg').show().delay(6000).fadeOut('slow');
     $('#login_bg').show().delay(2000).fadeOut('slow');
@@ -207,7 +187,12 @@ $(document).ready(function () {
             success: function (result) {
                 //$('#edit_admin_bg').html(result);
                 $("#editSocial").hide();
-                Materialize.toast(result, 4000);
+                // Materialize.toast(result, 4000);
+                swal(
+                        'Server Feedback',
+                        result,
+                        'info'
+                        );
 
             },
             error: function (result) {
@@ -251,7 +236,12 @@ $(document).ready(function () {
             success: function (result) {
                 //$('#edit_admin_bg').html(result);
                 $("#editAccount").hide();
-                Materialize.toast(result, 4000);
+                //Materialize.toast(result, 4000);
+                swal(
+                        'Server Feedback',
+                        result,
+                        'info'
+                        );
 
             },
             error: function (result) {
@@ -272,7 +262,12 @@ $(document).ready(function () {
             success: function (result) {
                 //$('#edit_admin_bg').html(result);
                 $("#editAdmin").hide();
-                Materialize.toast(result, 4000);
+                // Materialize.toast(result, 4000);
+                swal(
+                        'Server Feedback',
+                        result,
+                        'info'
+                        );
 
             },
             error: function (result) {
@@ -285,53 +280,112 @@ $(document).ready(function () {
 //admin
     $('#btn_admin').click(function (event) {
         event.preventDefault();
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#adminData").serialize(),
+                url: "AdminServlet?add=admin",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
 
-        $.ajax({
-            type: 'POST',
-            data: $("#adminData").serialize(),
-            url: "AdminServlet?add=admin",
-            success: function (result) {
-                $('#admin_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
-
+            });
         });
+
     });
     //social worker
-    $('#btn_social_worker').click(function (event) {
+
+
+
+    $('#btn_social_worker_1').click(function (event) {
         event.preventDefault();
 
-        $.ajax({
-            type: 'POST',
-            data: $("#socialWorkerData").serialize(),
-            url: "AdminServlet?add=social",
-            success: function (result) {
-                $('#social_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#socialWorkerData").serialize(),
+                url: "AdminServlet?add=social",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
 
+            });
         });
     });
 
     //accountant
     $('#btn_accountant').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#accountatData").serialize(),
-            url: "AdminServlet?add=acct",
-            success: function (result) {
-                $('#acct_feedb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#accountatData").serialize(),
+                url: "AdminServlet?add=acct",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
     });
 
 

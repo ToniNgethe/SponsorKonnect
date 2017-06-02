@@ -314,10 +314,11 @@ public class Admin {
     public boolean checkTotalPayment(String id, String amount) {
         boolean isGreate = false;
         
-        String query = "SELECT SUM(amount) FROM sponsor_payments WHERE sponsor_id = ?";
+        String query = "SELECT SUM(amount) FROM sponsor_payments WHERE sponsor_id = ? AND type = ?";
         try {
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
+            pst.setInt(2, 0);
             
             rs = pst.executeQuery();
             

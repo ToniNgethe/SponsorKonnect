@@ -22,9 +22,11 @@
         <!-- Compiled and minified CSS -->
         <script src="js/jquery.min.js" type="text/javascript"></script>
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
+        <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified JavaScript -->
         <script src="js/jquery-ui.js" type="text/javascript"></script>
         <script src="js/materialize.min.js" type="text/javascript"></script>
+        <script src="js/sweetalert2.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
         <script src="js/admin.js" type="text/javascript"></script>
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -62,9 +64,8 @@
         </nav>
 
         <div id="test1" class="container">
-            <div class="row center">
-                <h2 class="label large label-info"> Workers Section</h2>
-                <h3 class="label large label-info"> You can add or views workers</h3>
+            <div class="row center alert blue white-text" style="margin-top: 5%;margin-bottom: 5%;">
+                <h5 class=""> You can add or views workers</h5>
             </div>
             <div class="row">
                 <div class="col s12">
@@ -127,7 +128,7 @@
             <div class="modal-content">
                 <div class="row">
                     <div class="col s12 ">
-                        <table  class="table table-hover table-striped" id="adminTable">
+                        <table  class="table striped highlight"  id="adminTable">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -218,8 +219,8 @@
     <div id="accWorkerTable" class="modal white">
         <div class="modal-content">
             <div class="row">
-                <div class="col s8 offset-l2 table table-hover table-striped">
-                    <table  class="" id="accountantTable">
+                <div class="col s12">
+                    <table  class="table striped highlight" id="accountantTable">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -307,8 +308,8 @@
     <div id="socialWorkerTable" class="modal white">
         <div class="modal-content">
             <div class="row">
-                <div class="col s8 offset-l2 table table-hover table-striped">
-                    <table  class="" id="socialFromDb">
+                <div class="col s12">
+                    <table  class="table striped highlight centered" id="socialFromDb">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -391,10 +392,10 @@
     </div
 </div>
 <!-- Social worker -->
-<div id="addSocialWorker" class="modal  white">
+<div id="addSocialWorker" class="modal  white" style="max-width: 750px;">
     <div class="modal-content">
         <div class="row">
-            <div class="col s6 offset-l3">
+            <div class="col s12 ">
 
                 <form id="socialWorkerData" method="post">
                     <div  id="social_feedb">
@@ -432,7 +433,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <button id="btn_social_worker" type="button" class="validate btn btn-info">Save Social Worker</button>
+                            <button id="btn_social_worker_1" type="button" class="validate btn btn-info">Save Social Worker</button>
                         </div>
                     </div>
                 </form>
@@ -449,10 +450,10 @@
 </div>
 
 <!-- acc worker -->
-<div id="addAccountant" class="modal white">
+<div id="addAccountant" class="modal white" style="max-width: 750px;">
     <div class="modal-content">
         <div class="row">
-            <div class="col s6 offset-l3">
+            <div class="col s12">
 
                 <form id="accountatData" method="post">
                     <div  id="acct_feedb">
@@ -507,10 +508,10 @@
 </div>
 
 <!-- Admin worker -->
-<div id="addAdmin" class="modal white">
+<div id="addAdmin" class="modal white" style="max-width: 750px;">
     <div class="modal-content">
         <div class="row">
-            <div class="col s6 offset-l3">
+            <div class="col s12 ">
 
                 <form id="adminData" method="post">
                     <div  id="admin_feedb">
@@ -574,8 +575,8 @@
 
             <div class="" style="margin-top: 5%;">
                 <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#new_sponsor">New Sponsor</a></li>
-                    <li class="tab"><a class="active" href="#sponsor_commitments">Sponsor Commitments</a></li>
+                    <li class="tab"><a class="active" href="#new_sponsor">New Sponsor</a></li>
+                    <li class="tab"><a  href="#sponsor_commitments">Sponsor Commitments</a></li>
                     <li class="tab"><a href="#sponsor_payments">Sponsor Payments</a></li>
                     <li class="tab"><a href="#sponsor_reg">Registered Sponsors</a></li>
                 </ul>
@@ -589,7 +590,7 @@
                     <div class="row">
                         <form id="new_sponsor_info" method="post">
                             <div id="new_sponsor_fb"></div>
-                            <h5 class="center">ADD NEW SPONSOR</h5>
+                           
 
                             <div class="col s12">
                                 <div class="row">
@@ -686,14 +687,14 @@
                                             <div class="card-content" style="margin-bottom: 10%;">
                                                 <div class="search-container row">
                                                     <div class="input-field col s12">
-                                                        <input required="" name="name" id="search" type="text" onkeyup="searchInfo()" >
+                                                        <input required name="name" id="search" type="text" onkeyup="searchInfo()" >
                                                         <label for="search">Enter Sponsor id</label>
                                                     </div>
                                                 </div>
                                                 <div class="row" id="mylocation"></div>  
                                                 <div class="row">
                                                     <div class="input-field col s12">
-                                                        <input name="sponsor_amount" required="true" id="sponsor_amount" type="number" class="validate">
+                                                        <input name="sponsor_amount" required id="sponsor_amount" type="number" class="validate">
                                                         <label data-error="Not a number" for="sponsor_amount">Amount to commit</label>
                                                     </div>
                                                 </div>
@@ -719,7 +720,7 @@
                     <form name="sponsorcommit_payments" id="sponsorcommit_payments">
                         <div class="row">
                             <div class="col s8 centered">
-                                <h5 class="">Sponsor commitments payments go here</h5>
+                              
                             </div>
 
                             <div class="">
@@ -763,7 +764,7 @@
                         <div class="row">
                             <div class="col s8 offset-l5">
 
-                                <a class="waves-effect waves-light btn btn-large white black-text"  href="#makeSponsorPay">Make payment instead</a>
+                                <a class="waves-effect waves-light btn-flat btn-large white black-text"  href="#makeSponsorPay">Make payment instead</a>
                             </div>
                         </div>
                     </form>
@@ -771,13 +772,14 @@
                 <div id="sponsor_reg">
 
                     <!--                    LIST OF REGISTERED SPONSORS-->
-                    <div class="card" style="margin: 5%;">
+                    <div class="card">
                         <div class="card-content">
 
                             <script type="text/javascript" charset="utf-8">
-
+                                
                                 $(document).ready(function () {
-
+                                     
+                                    
                                     $("#example").DataTable({
                                         "bProcessing": false,
                                         "bServerSide": false,
@@ -797,18 +799,18 @@
                                 });
                             </script>
 
-                            <div id="dynamic">
-                                <table cellpadding="0" cellspacing="0" border="0" class="table"
+                            <div id="dynamic" class="col s12">
+                                <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
                                        id="example">
                                     <thead>
                                         <tr>
-                                            <th width="10%">Sponsor ID</th>
-                                            <th width="10%">Name</th>
-                                            <th width="10%">Number</th>
-                                            <th width="10%">Email</th>
-                                            <th width="10%">Communication means</th>
-                                            <th width="10%">SponsorShip Type</th>
-                                            <th width="10%">Company</th>
+                                            <th >Sponsor ID</th>
+                                            <th >Name</th>
+                                            <th >Number</th>
+                                            <th >Email</th>
+                                            <th >Communication means</th>
+                                            <th >SponsorShip Type</th>
+                                            <th>Company</th>
                                         </tr>
                                     </thead>
                                 </table>

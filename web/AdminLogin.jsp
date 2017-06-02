@@ -32,11 +32,10 @@
         <div class="section center-align" style="margin-top:100dp;">
             <div class="container">
 
-                <div class="row center">
-                    <div class="col s5 offset-l4" style="margin-top: 10%;">
 
-                        <h2>SponsorKonnect</h2>
-                        
+                <div class="row center">
+                    <div class="col s5 offset-l4" style="margin-bottom:  -8%;">
+                        <img src="img/sponsor_logo.png" alt="" style="width: 70%;"/>
                     </div>  
                 </div>
 

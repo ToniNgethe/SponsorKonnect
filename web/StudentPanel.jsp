@@ -26,6 +26,7 @@
         <!-- Compiled and minified JavaScript -->
         <script src="js/materialize.min.js" type="text/javascript"></script>
         <script src="js/sweetalert2.js" type="text/javascript"></script>
+        <script src="js/student.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
     </head>
     <body>

@@ -64,9 +64,11 @@ public final class AdminPanel_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <!-- Compiled and minified CSS -->\n");
       out.write("        <script src=\"js/jquery.min.js\" type=\"text/javascript\"></script>\n");
       out.write("        <link href=\"css/materialize.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("        <link href=\"css/sweetalert2.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("        <!-- Compiled and minified JavaScript -->\n");
       out.write("        <script src=\"js/jquery-ui.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"js/materialize.min.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <script src=\"js/sweetalert2.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"js/custom.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"js/admin.js\" type=\"text/javascript\"></script>\n");
       out.write("        <script src=\"js/jquery.dataTables.min.js\" type=\"text/javascript\"></script>\n");
@@ -106,9 +108,8 @@ public final class AdminPanel_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </nav>\n");
       out.write("\n");
       out.write("        <div id=\"test1\" class=\"container\">\n");
-      out.write("            <div class=\"row center\">\n");
-      out.write("                <h2 class=\"label large label-info\"> Workers Section</h2>\n");
-      out.write("                <h3 class=\"label large label-info\"> You can add or views workers</h3>\n");
+      out.write("            <div class=\"row center alert blue white-text\" style=\"margin-top: 5%;margin-bottom: 5%;\">\n");
+      out.write("                <h5 class=\"\"> You can add or views workers</h5>\n");
       out.write("            </div>\n");
       out.write("            <div class=\"row\">\n");
       out.write("                <div class=\"col s12\">\n");
@@ -435,7 +436,7 @@ public final class AdminPanel_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </div\n");
       out.write("</div>\n");
       out.write("<!-- Social worker -->\n");
-      out.write("<div id=\"addSocialWorker\" class=\"modal  white\">\n");
+      out.write("<div id=\"addSocialWorker\" class=\"modal  white\" style=\"max-width: 500px;\">\n");
       out.write("    <div class=\"modal-content\">\n");
       out.write("        <div class=\"row\">\n");
       out.write("            <div class=\"col s6 offset-l3\">\n");
@@ -476,7 +477,7 @@ public final class AdminPanel_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </div>\n");
       out.write("                    <div class=\"row\">\n");
       out.write("                        <div class=\"input-field col s12\">\n");
-      out.write("                            <button id=\"btn_social_worker\" type=\"button\" class=\"validate btn btn-info\">Save Social Worker</button>\n");
+      out.write("                            <button id=\"btn_social_worker_1\" type=\"button\" class=\"validate btn btn-info\">Save Social Worker</button>\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
       out.write("                </form>\n");

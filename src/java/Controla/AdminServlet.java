@@ -94,9 +94,9 @@ public class AdminServlet extends HttpServlet {
                 if (id != null) {
 
                     if (admin.saveWorker(id, "admin", wm)) {
-                        out.print("  <div  class='green-text'>Admin changes sucessfully made. Close & Open to note chnages</div>");
+                        out.print("  <div  class='alert alert-success'>Admin changes sucessfully made. Close & Open to note chnages</div>");
                     } else {
-                        out.print("  <div class='red-text' role='alert'>Error Saving Admin changes</div>");
+                        out.print("  <div class='alert alert-danger' role='alert'>Error Saving Admin changes</div>");
                     }
 
                 } else {
@@ -109,9 +109,9 @@ public class AdminServlet extends HttpServlet {
                 if (id != null) {
 
                     if (admin.saveWorker(id, "accountant", wm)) {
-                        out.print("  <div  class='green-text'>Accountant changes sucessfully made. Close & Open to note chnages</div>");
+                        out.print("  <div  class='alert alert-success'>Accountant changes sucessfully made. Close & Open to note chnages</div>");
                     } else {
-                        out.print("  <div class='red-text' role='alert'>Error Saving Accountant changes</div>");
+                        out.print("  <div class='alert alert-danger' role='alert'>Error Saving Accountant changes</div>");
                     }
 
                 } else {
@@ -123,9 +123,9 @@ public class AdminServlet extends HttpServlet {
                 if (id != null) {
 
                     if (admin.saveWorker(id, "social_worker", wm)) {
-                        out.print("  <div  class='green-text'>Social Worker changes sucessfully made. Close & Open to note chnages</div>");
+                        out.print("  <div  class='alert alert-success'>Social Worker changes sucessfully made. Close & Open to note chnages</div>");
                     } else {
-                        out.print("  <div class='red-text' role='alert'>Error Saving Social Worker changes</div>");
+                        out.print("  <div class='alert alert-success' role='alert'>Error Saving Social Worker changes</div>");
                     }
 
                 } else {

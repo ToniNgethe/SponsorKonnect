@@ -1,3 +1,5 @@
+
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -354,89 +356,178 @@ $(document).ready(function () {
     //sponsor payments...
     $('#btn_make_sponsor_payment').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#make_sponsor_payments").serialize(),
-            url: "SponsorServlet?action=pay",
-            success: function (result) {
-                Materialize.toast(result, 3000);
-                $('#make_sponsor_payments_id').val("");
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+
+            $.ajax({
+                type: 'POST',
+                data: $("#make_sponsor_payments").serialize(),
+                url: "SponsorServlet?action=pay",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                    $('#make_sponsor_payments_id').val("");
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
+
     });
+
     //pay commitments
     $('#btn_commit_payments').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#sponsorcommit_payments").serialize(),
-            url: "SponsorServlet?action=payments",
-            success: function (result) {
-                Materialize.toast(result, 3000);
-                $('#sponsor_comm_number').val("");
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
 
+        swal({
+            text: "Confirm before submitting payment",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+
+            $.ajax({
+                type: 'POST',
+                data: $("#sponsorcommit_payments").serialize(),
+                url: "SponsorServlet?action=payments",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                    $('#sponsor_comm_number').val("");
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
+
     });
 
     //save sponsor commits
     $('#btn_sponsor_commits').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#sponsor_commit_form").serialize(),
-            url: "SponsorServlet?action=saveCommits",
-            success: function (result) {
-                Materialize.toast(result, 3000, 'rounded');
-                $('#admin_feedb').html("");
-                // $('#sponsor_comm_fb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                Materialize.toast(result, 4000, 'rounded');
-            }
 
+        swal({
+            text: "Confirm before submitting commitment",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+
+            $.ajax({
+                type: 'POST',
+                data: $("#sponsor_commit_form").serialize(),
+                url: "SponsorServlet?action=saveCommits",
+                success: function (result) {
+                    // Materialize.toast(result, 3000, 'rounded');
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                    $('#admin_feedb').html("");
+                    // $('#sponsor_comm_fb').html(result).show().delay(3000).fadeOut('slow');
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
+
     });
 //add new sponsor
     $('#btn_add_newSponsor').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#new_sponsor_info").serialize(),
-            url: "SponsorServlet?action=commits",
-            success: function (result) {
 
-                $('#new_sponsor_fb').html(result).show().delay(3000).fadeOut('slow');
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
 
+            $.ajax({
+                type: 'POST',
+                data: $("#new_sponsor_info").serialize(),
+                url: "SponsorServlet?action=commits",
+                success: function (result) {
+
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
+
     });
 
     $('#btn_save_school_fee').click(function () {
-      
+
         $.ajax({
             type: 'POST',
             data: $("#editFeeStractureForm").serialize(),
             url: "SchoolServlet?action=editFee",
             success: function (data) {
-                
-                 Materialize.toast(data, 2000);
+
+                Materialize.toast(data, 2000);
             }, error: function (data) {
                 alert("error:" + data);
             }
         });
     });
-    
-    
+
+
 });
 
