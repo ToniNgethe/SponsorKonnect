@@ -21,7 +21,7 @@
             } else {
 
                 if (rs.next()) {
-
+                    out.print("<div class='row'> <img src='ImageServlet?id=" + name + "' class='circle' alt='' style='width: 170px; height: 170px; margin-left:36%;'/> </di>");
                     out.print("<div class='card'>");
                     out.print("<div class='card-header alert teal white-text'><h6>Date Submitted</h6></div>");
                     out.print("<div class='card-content'>" + rs.getString("date") + "</div>");

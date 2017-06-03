@@ -17,43 +17,36 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author toni
  */
-public class AccStudentAllocation extends HttpServlet {
+public class AccStudentAdditional extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain");
-
         PrintWriter out = response.getWriter();
-
-        String student_id = request.getParameter("id");
+        String stud_id = request.getParameter("id");
+        String fees = request.getParameter("fees");
         String sponsor = request.getParameter("sponsor");
-        String amount = request.getParameter("amount_school");
-        String upkeep = request.getParameter("amount_upkeep");
-        String others = request.getParameter("amount_others");
-        Accountant a = new Accountant();
-        if (!student_id.isEmpty()) {
+        String school = request.getParameter("add_school");
+        String upkeep = request.getParameter("add_upkeep");
+        String other = request.getParameter("add_other");
+
+        Accountant ac = new Accountant();
+
+        if (!stud_id.isEmpty()) {
             if (!sponsor.isEmpty()) {
+                if (!fees.isEmpty()) {
 
-                if (!amount.isEmpty() && !upkeep.isEmpty() && !others.isEmpty()) {
-
-                    //check if added for this term
-                    if (!a.isAllocated(student_id)) {
-
-                        if (a.allocateStudents(student_id, amount, upkeep, others, sponsor)) {
-                            out.print("  <div id='err' class='alert alert-success' role='alert' style='margin:4%;' >Student succesfully allocated</div>");
-                        } else {
-                            out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to get allocation details</div>");
-                        }
+                    //check school fees is fully paid.....
+                    if (!ac.isPaid(stud_id, fees)) {
 
                     } else {
-                        out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Looks like this student has already been allocated</div>");
-                         out.print("  <div id='err' class='alert alert-info' role='alert' style='margin:4%;' >Make additional payment?<a   onclick='return allocateAdditional();'> HERE </a></div>");
+                        out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >School fees fully paid</div>");
                     }
-
                 } else {
-                    out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to get allocation details</div>");
+                    out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to determine School fees</div>");
                 }
-            }else {
+
+            } else {
                 out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to determine Sponsor id</div>");
             }
         } else {

@@ -16,18 +16,29 @@ public class AccSponsor {
     private double commits;
     private double payments;
     private double bal;
+    private double use;
 
-    public AccSponsor(String sponsor_id, String name, double commits, double payments, double bal) {
+    public AccSponsor(String sponsor_id, String name, double commits, double payments, double bal, double use) {
         this.sponsor_id = sponsor_id;
         this.name = name;
         this.commits = commits;
         this.payments = payments;
         this.bal = bal;
+        this.use = use;
     }
 
     public AccSponsor() {
     }
 
+    public double getUse() {
+        return use;
+    }
+
+    public void setUse(double use) {
+        this.use = use;
+    }
+
+    
     public double getBal() {
         return bal;
     }

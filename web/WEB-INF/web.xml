@@ -116,6 +116,10 @@
         <servlet-name>StudentLogout</servlet-name>
         <servlet-class>Controla.StudentLogout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccStudentAdditional</servlet-name>
+        <servlet-class>Controla.AccStudentAdditional</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>StudentLogout</servlet-name>
         <url-pattern>/StudentLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccStudentAdditional</servlet-name>
+        <url-pattern>/AccStudentAdditional</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -126,7 +126,7 @@ public class SocialWorker {
   public boolean fileReport(String stud_id, String social, String bg, String composition, String ethnicity, String health, String date){
       boolean isSuccess = false;
       
-      String query = "INSERT INTO `SocialVisits`(`stud_id`, `social_worker`, `background`, `composition`, `ethnicity`, `health`, 'date')"
+      String query = "INSERT INTO `SocialVisits`(`stud_id`, `social_worker`, `background`, `composition`, `ethnicity`, `health`, `date`)"
               + " VALUES ( ?, ?, ?, ?, ?, ?, ?)";
       
         try {
@@ -138,6 +138,7 @@ public class SocialWorker {
             pst.setString(5, ethnicity);
             pst.setString(6, health);
             pst.setString(7, date);
+            
             
             int a = pst.executeUpdate();
             

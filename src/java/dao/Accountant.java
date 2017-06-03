@@ -8,7 +8,6 @@ package dao;
 import Model.AccSponsor;
 import Model.AccountantStudentsModel;
 import Model.FeesModel;
-import Model.SocialStudentsModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -171,7 +170,7 @@ public class Accountant {
                     //get sponsor name
                     accSponsor.setName(r1.getString("name"));
 
-                    String q2 = "SELECT SUM(amount) FROM sponsor_commits WHERE sponsor_id = ?";
+                    String q2 = "SELECT SUM(amount) FROM sponsor_use WHERE sponsor_id = ?";
                     PreparedStatement p2 = conn.prepareStatement(q2);
                     p2.setString(1, rs.getString("sponsor"));
                     ResultSet rs2 = p2.executeQuery();
@@ -192,7 +191,7 @@ public class Accountant {
                     }
 
                     accSponsor.setBal(accSponsor.getPayments() - accSponsor.getCommits());
-
+                   
                     myList.add(accSponsor);
                 }
 
@@ -227,7 +226,7 @@ public class Accountant {
         return allocated;
     }
 
-    public boolean allocateStudents(String id, String amount, String upkeep, String others) {
+    public boolean allocateStudents(String id, String amount, String upkeep, String others, String sponsor) {
         boolean success = false;
 
         java.util.Date today = new java.util.Date();
@@ -246,6 +245,19 @@ public class Accountant {
             
             if (a>0) {
                 success = true;
+                
+                  //deduct amount from sponsor payments.....
+                  String q = "INSERT INTO `sponsor_use`(`stud_id`, `sponsor_id`, `amount`, `date`) VALUES ( ?, ?, ?, ?)";
+                  PreparedStatement p = conn.prepareStatement(q);
+                  p.setString(1, id);
+                  p.setString(2, sponsor);
+                  p.setDouble(3, Double.valueOf(amount) + Double.valueOf(upkeep) +  Double.valueOf(others));
+                  p.setDate(4, t);
+                  
+                  int b = p.executeUpdate();
+                  if(b > 0){
+                      System.out.println("Deduction made successfully");
+                  }
             }
             
            
@@ -253,6 +265,36 @@ public class Accountant {
             Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return success;
+    }
+    
+    public boolean isPaid(String id, String fees){
+        boolean paid = false;
+        
+        String query = "SELECT school FROM student_allocation WHERE stud_id = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            
+            rs  = pst.executeQuery();
+            if (rs.next()) {
+                
+                if (Double.valueOf(fees) >= rs.getDouble("school")){
+                    paid = true;
+                }
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return paid;
+    }
+    
+    public boolean alterAllocation(){
+        boolean success = false;
+        
         return success;
     }
 }

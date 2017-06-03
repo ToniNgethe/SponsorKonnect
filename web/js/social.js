@@ -6,7 +6,7 @@
 var request = new XMLHttpRequest();
 
 function studentReport() {
-  
+
     var name = document.searchstudent_report.serch_student_field.value;
     var url = "GetStudentReports.jsp?val=" + name;
     try {
@@ -27,8 +27,9 @@ function studentReport() {
 $(document).ready(function () {
 
     $('.modal').modal({
-        dismissible: false
-
+        dismissible: false,
+        startingTop: '1%', // Starting top style attribute
+        endingTop: '1%' // Ending top style attribute
     });
 
 //    $('select').material_select();
@@ -38,8 +39,8 @@ $(document).ready(function () {
         format: 'yyyy-mm-dd'
     });
 
-    //submit report
-    //save social edits
+//submit report
+//save social edits
     $('#btn_submit_report').click(function (event) {
         event.preventDefault();
         $.ajax({
@@ -50,13 +51,13 @@ $(document).ready(function () {
 
                 //$('#modal1').modal('close');
                 Materialize.toast(result, 4000);
-
             },
             error: function (result) {
                 alert("error" + result);
             }
 
         });
-    });
+    }
+    );
 });
 

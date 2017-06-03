@@ -33,10 +33,10 @@ function theFunction() {
     return true;
 }
 
-function studentReport() {
+function studentFinance() {
 
     var name = document.searchstudent_report.serch_student_field.value;
-    var url = "GetStudentReports.jsp?val=" + name;
+    var url = "getAccStudentInfo.jsp?val=" + name;
     try {
         request.onreadystatechange = function () {
             if (request.readyState === 4) {

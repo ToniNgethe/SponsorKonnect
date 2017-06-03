@@ -147,12 +147,12 @@
                             <input id="serch_student_field" name="serch_student_field" type="text" class="validate" onkeyup="studentReport()">
                             <label for="serch_student_field">Search Student by id</label>
                         </div>       
+                        <div id="feedback_area" class="col s6 offset-l2">
 
+                        </div>
                     </div>
 
-                    <div id="feedback_area" class="col s6 offset-l2">
 
-                    </div>
                 </div>
             </form>
         </div> 
@@ -166,7 +166,7 @@
 <!--        <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>-->
 
 <!-- Modal Structure For filing reports-->
-<div id="modal1" class="modal modal-fixed-footer" data-backdrop="static" data-keyboard="false">
+<div id="modal1" class="modal modal-fixed-footer" data-backdrop="static" data-keyboard="false" style="max-width: 1500px;width:1400px; max-height: 1700px; height: 900px;">
     <form id="selcted_student_form">
         <div class="modal-content">
             <div class="row alert alert-info">
