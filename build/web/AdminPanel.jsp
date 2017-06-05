@@ -47,9 +47,8 @@
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Students</a></li>
-                    <li><a href="badges.html">Workers</a></li>
-                    <li><a href="collapsible.html">Sponsors</a></li>
+                    
+                    <li><a href="./AdminLogOut">Log out</a></li>
                 </ul>
 
             </div>
@@ -579,6 +578,7 @@
                     <li class="tab"><a  href="#sponsor_commitments">Sponsor Commitments</a></li>
                     <li class="tab"><a href="#sponsor_payments">Sponsor Payments</a></li>
                     <li class="tab"><a href="#sponsor_reg">Registered Sponsors</a></li>
+                    <li class="tab"><a href="#applicant_sponsors"> Applicants</a>
                 </ul>
             </div>
 
@@ -590,7 +590,7 @@
                     <div class="row">
                         <form id="new_sponsor_info" method="post">
                             <div id="new_sponsor_fb"></div>
-                           
+
 
                             <div class="col s12">
                                 <div class="row">
@@ -720,7 +720,7 @@
                     <form name="sponsorcommit_payments" id="sponsorcommit_payments">
                         <div class="row">
                             <div class="col s8 centered">
-                              
+
                             </div>
 
                             <div class="">
@@ -776,10 +776,10 @@
                         <div class="card-content">
 
                             <script type="text/javascript" charset="utf-8">
-                                
+
                                 $(document).ready(function () {
-                                     
-                                    
+
+
                                     $("#example").DataTable({
                                         "bProcessing": false,
                                         "bServerSide": false,
@@ -815,39 +815,119 @@
                                     </thead>
                                 </table>
                             </div>
-                            <!--                            <h5>Registered Sponsors</h5>
-                            
-                                                        <table class="striped table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Committed</th>
-                                                                    <th>Contact</th>
-                                                                    <th>Email</th>
-                                                                    <th>Country</th>
-                                                                    <th>Date of Registration</th>
-                                                                    <th>Sponsorship Type</th>
-                                                                </tr>
-                                                            </thead>
-                            
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Alvin</td>
-                                                                    <td>Eclair</td>
-                                                                    <td>$0.87</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Alan</td>
-                                                                    <td>Jellybean</td>
-                                                                    <td>$3.76</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Jonathan</td>
-                                                                    <td>Lollipop</td>
-                                                                    <td>$7.00</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>-->
+
+                        </div>   
+                    </div>
+                </div>
+
+                <div id="applicant_sponsors">
+
+                    <!--                    LIST OF SPONSORS WHO HAVE APPLIED-->
+                    <div class="card">
+                        <div class="card-content">
+
+                            <script type="text/javascript" charset="utf-8">
+
+                                $(document).ready(function () {
+
+                                    var table;
+                                    table = $("#sponsor_applicants_table").DataTable({
+                                        "bProcessing": false,
+                                        "bServerSide": false,
+                                        "sAjaxSource": "PopulateSponsorApplicants",
+                                        "bJQueryUI": true,
+                                        "aoColumns": [
+                                            {"mData": "name"},
+                                            {"mData": "number"},
+                                            {"mData": "email"},
+                                            {"mData": "means"},
+                                            {"mData": "type"},
+                                            {"mData": "company"},
+                                            {"mData": "date"},
+                                            {"mData": "sponsor_id"}
+
+                                        ]
+                                    });
+
+                                    $('#sponsor_applicants_table tbody').on('click', 'tr', function () {
+                                        var data = table.row(this).data();
+
+                                        var name = data.name;
+                                        var number = data.number;
+                                        var email = data.email;
+                                        var means = data.means;
+                                        var type = data.type;
+                                        var company = data.company;
+
+                                        swal({
+                                            title: 'Enter sponsor id to assign ' + name,
+                                            input: 'text',
+                                            showCancelButton: true,
+                                            inputValidator: function (value) {
+                                                return new Promise(function (resolve, reject) {
+                                                    if (value) {
+                                                        resolve();
+                                                    } else {
+                                                        reject('Please enter sponsor id assign');
+                                                    }
+                                                });
+                                            }
+                                        }).then(function (result) {
+
+                                            $.ajax({
+                                                type: 'GET',
+                                                data: {
+                                                    name: name,
+                                                    number: number,
+                                                    email: email,
+                                                    means: means,
+                                                    type: type,
+                                                    company: company,
+                                                    sponsor_id: result},
+                                                url: "AssignNewSponsorIdServ",
+                                                success: function (res) {
+
+                                                    swal(
+                                                            'Server Feedback',
+                                                            res,
+                                                            'info'
+                                                            );
+                                                },
+                                                error: function (res) {
+                                                    swal(
+                                                            'Server Feedback',
+                                                            res,
+                                                            'info'
+                                                            );
+                                                }
+
+                                            });
+
+                                        });
+                                    });
+                                });
+
+
+                            </script>
+
+                            <div id="dynamic" class="col s12">
+                                <table  cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                        id="sponsor_applicants_table">
+                                    <thead>
+                                        <tr>
+                                            <th >Name</th>
+                                            <th >Number</th>
+                                            <th >Email</th>
+                                            <th >Communication means</th>
+                                            <th >SponsorShip Type</th>
+                                            <th>Company</th>
+                                            <th>Date applied</th>
+                                            <th>Assign id</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
                         </div>   
                     </div>
                 </div>

@@ -124,14 +124,27 @@ public class Accountant {
 
                 ResultSet r = p.executeQuery();
                 while (r.next()) {
-                    FeesModel feesModel = new FeesModel();
-                    feesModel.setId(r.getInt(1));
-                    feesModel.setName(r.getString(2));
-                    feesModel.setFirst(r.getDouble(3));
-                    feesModel.setSecond(r.getDouble(4));
-                    feesModel.setThird(r.getDouble(5));
-                    feesModel.setTotal(r.getDouble(3) + r.getDouble(4) + r.getDouble(5));
-                    myList.add(feesModel);
+
+                    String s = "SELECT SUM(school)S FROM student_allocation WHERE stud_id = ?";
+                    PreparedStatement p1 = conn.prepareStatement(s);
+                    p1.setString(1, id);
+
+                    ResultSet r2 = p1.executeQuery();
+
+                    while (r2.next()) {
+
+                        FeesModel feesModel = new FeesModel();
+                        feesModel.setId(r.getInt(1));
+                        feesModel.setName(r.getString(2));
+                        feesModel.setFirst(r.getDouble(3));
+                        feesModel.setSecond(r.getDouble(4));
+                        feesModel.setThird(r.getDouble(5));
+                        feesModel.setTotal(r.getDouble(3) + r.getDouble(4) + r.getDouble(5));
+
+                        feesModel.setPaid(r2.getInt(1));
+                        myList.add(feesModel);
+                    }
+
                 }
 
             }
@@ -191,7 +204,7 @@ public class Accountant {
                     }
 
                     accSponsor.setBal(accSponsor.getPayments() - accSponsor.getCommits());
-                   
+
                     myList.add(accSponsor);
                 }
 
@@ -239,62 +252,111 @@ public class Accountant {
             pst.setDouble(2, Double.valueOf(amount));
             pst.setDouble(3, Double.valueOf(upkeep));
             pst.setDouble(4, Double.valueOf(others));
-            pst.setDate(5,t);
-            
+            pst.setDate(5, t);
+
             int a = pst.executeUpdate();
-            
-            if (a>0) {
+
+            if (a > 0) {
                 success = true;
-                
-                  //deduct amount from sponsor payments.....
-                  String q = "INSERT INTO `sponsor_use`(`stud_id`, `sponsor_id`, `amount`, `date`) VALUES ( ?, ?, ?, ?)";
-                  PreparedStatement p = conn.prepareStatement(q);
-                  p.setString(1, id);
-                  p.setString(2, sponsor);
-                  p.setDouble(3, Double.valueOf(amount) + Double.valueOf(upkeep) +  Double.valueOf(others));
-                  p.setDate(4, t);
-                  
-                  int b = p.executeUpdate();
-                  if(b > 0){
-                      System.out.println("Deduction made successfully");
-                  }
+
+                //deduct amount from sponsor payments.....
+                String q = "INSERT INTO `sponsor_use`(`stud_id`, `sponsor_id`, `amount`, `date`) VALUES ( ?, ?, ?, ?)";
+                PreparedStatement p = conn.prepareStatement(q);
+                p.setString(1, id);
+                p.setString(2, sponsor);
+                p.setDouble(3, Double.valueOf(amount) + Double.valueOf(upkeep) + Double.valueOf(others));
+                p.setDate(4, t);
+
+                int b = p.executeUpdate();
+                if (b > 0) {
+                    System.out.println("Deduction made successfully");
+                }
             }
-            
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return success;
     }
-    
-    public boolean isPaid(String id, String fees){
+
+    public boolean additionalAllocation(String id, String amount, String upkeep, String others, String sponsor) {
+        boolean success = false;
+        java.util.Date today = new java.util.Date();
+        java.sql.Date t = new java.sql.Date(today.getTime());
+        //get values first
+        String query = "SELECT * FROM `student_allocation` WHERE stud_id = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+
+                //store new valus
+                String q = "UPDATE student_allocation SET school = ?, upkeep = ?, others = ? WHERE stud_id = ?";
+                PreparedStatement p = conn.prepareStatement(q);
+                p.setDouble(1, rs.getDouble("school") + Double.valueOf(amount));
+                p.setDouble(2, rs.getDouble("upkeep") + Double.valueOf(upkeep));
+                p.setDouble(3, rs.getDouble("others") + Double.valueOf(others));
+                p.setString(4, id);
+
+                int b = p.executeUpdate();
+
+                if (b > 0) {
+                    System.out.println("student allocation successfully updated");
+
+                    //update sponsor_use..
+                    String s = "UPDATE sponsor_use SET amount = ?, date = ? WHERE sponsor_id = ? AND stud_id = ?";
+                    PreparedStatement q2 = conn.prepareStatement(s);
+                    q2.setDouble(1, rs.getDouble("school") + Double.valueOf(amount) + rs.getDouble("upkeep") + Double.valueOf(upkeep) + rs.getDouble("others") + Double.valueOf(others));
+                    q2.setDate(2, t);
+                    q2.setString(3, sponsor);
+                    q2.setString(4, id);
+
+                    int a = q2.executeUpdate();
+                    if (a > 0) {
+                        success = true;
+                    }
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return success;
+    }
+
+    public boolean isPaid(String id, String fees) {
         boolean paid = false;
-        
+
         String query = "SELECT school FROM student_allocation WHERE stud_id = ?";
         try {
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
-            
-            rs  = pst.executeQuery();
+
+            rs = pst.executeQuery();
             if (rs.next()) {
-                
-                if (Double.valueOf(fees) >= rs.getDouble("school")){
+
+                if (Double.valueOf(fees) >= rs.getDouble("school")) {
                     paid = true;
                 }
-                
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Accountant.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return paid;
     }
-    
-    public boolean alterAllocation(){
+
+    public boolean alterAllocation() {
         boolean success = false;
-        
+
         return success;
     }
 }

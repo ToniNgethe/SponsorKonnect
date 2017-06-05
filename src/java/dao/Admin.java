@@ -7,6 +7,7 @@ package dao;
 
 import Controla.SponsorServlet;
 import DBUtils.DBUtil;
+import Model.ApplicantSponsors;
 import Model.FeesModel;
 import Model.SchoolsModel;
 import Model.SponosorModel;
@@ -746,4 +747,41 @@ public class Admin {
         
         return Updated;
     }
+    
+      //get all sponsors
+    public List<ApplicantSponsors> allApplicantSponors() {
+        List<ApplicantSponsors> myList = new ArrayList<>();
+
+     //  SELECT `id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `date` FROM `sponsor_applicants` WHERE 1
+        String query = "SELECT * FROM sponsor_applicants";
+        try {
+            pst = conn.prepareStatement(query);
+            
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                ApplicantSponsors sm = new ApplicantSponsors();
+                //sm.setSponsor_id(rs.getString(2));
+                sm.setName(rs.getString("name"));
+                sm.setNumber(rs.getString("mobile"));
+                sm.setEmail(rs.getString("email"));
+                sm.setMeans(rs.getString("means"));
+                sm.setType(rs.getString("type"));
+                sm.setCompany(rs.getString("company"));
+                sm.setDate(rs.getDate("date"));
+                sm.setSponsor_id();
+                
+                myList.add(sm);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return myList;
+    }
+    
+ 
 }
+

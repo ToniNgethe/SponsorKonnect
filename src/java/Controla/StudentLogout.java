@@ -28,7 +28,6 @@ public class StudentLogout extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.invalidate();
-
        
     }
 

@@ -52,14 +52,12 @@
                 <a href="#" class="brand-logo">SpnsorKonnect</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
+                    
+                    <li><a href="./AccountantLogout">Log out</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
+                   
+                    <li><a href="/AccountantLogout">Log out</a></li>
                 </ul>
             </div>
             <div class="nav-content">
@@ -88,7 +86,8 @@
                                 var total;
                                 var sponsor_id;
                                 var bal;
-                                
+                                var paid;
+
                                 $(document).ready(function () {
                                     var table = $("#assigned_students").DataTable({
                                         "bProcessing": false,
@@ -129,16 +128,18 @@
 
                                                 $.each(responseJson, function (key, value) {
 
-                                                    var rowNew = $('<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
+                                                    var rowNew = $('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>');
                                                     rowNew.children().eq(0).text(value['id']);
                                                     rowNew.children().eq(1).text(value['name']);
                                                     rowNew.children().eq(2).text(value['first']);
                                                     rowNew.children().eq(3).text(value['second']);
                                                     rowNew.children().eq(4).text(value['third']);
                                                     rowNew.children().eq(5).text(value['total']);
+                                                    rowNew.children().eq(6).text(value['paid']);
                                                     rowNew.appendTo(table1);
 
                                                     total = value['total'];
+                                                    paid = value['paid'];
                                                 });
                                             }
                                         });
@@ -165,6 +166,7 @@
                                                     sponsor_id = value['sponsor_id'];
                                                     bal = value['bal'];
                                                     pays = value['payments'];
+
                                                 });
                                             }
                                         });
@@ -198,6 +200,7 @@
                                                                     'error'
                                                                     );
                                                         } else {
+
 
                                                             swal({
                                                                 title: 'Confirm before submitting',
@@ -265,7 +268,7 @@
                                 function allocateAdditional() {
                                     swal({
                                         title: 'Additional Allocation',
-                                        html:   '<form id="student_additional_allocation">'+
+                                        html: '<form id="student_additional_allocation">' +
                                                 '<div style="margin:4%;">' +
                                                 '<div class="input-field col s12">' +
                                                 '<input name="add_school" id="add_school" type="number" class="validate">' +
@@ -279,7 +282,7 @@
                                                 '<input name="add_other" id="add_others" type="number" class="validate">' +
                                                 '<label data-error="Not a number" for="add_others">Amount to Others</label>' +
                                                 '</div>' +
-                                                '</div>'+
+                                                '</div>' +
                                                 '</form>',
                                         preConfirm: function () {
                                             return new Promise(function (resolve) {
@@ -318,35 +321,42 @@
                                                 if (t > bal) {
                                                     swal(
                                                             'Oops...',
-                                                            'Amount indicated is above sponsor acc balance'+t,
+                                                            'Amount indicated is above sponsor account balance',
                                                             'error'
                                                             );
                                                 } else {
 
-                                                    //submit to server...
-                                                      //all is good perfom ajax
-                                                                $.ajax({
-                                                                    type: 'POST',
-                                                                    data: $("#student_additional_allocation").serialize(),
-                                                                    url: "AccStudentAdditional?id=" + stud_id + "&sponsor=" + sponsor_id + "&fees=" + total,
-                                                                    success: function (result) {
-                                                                        // $('#admin_feedb').html(result).show().delay(3000).fadeOut('slow');
-                                                                        swal(
-                                                                                'Server Feedback',
-                                                                                result,
-                                                                                'info'
-                                                                                );
-                                                                    },
-                                                                    error: function (result) {
-                                                                        swal(
-                                                                                'Oops...',
-                                                                                result,
-                                                                                'error'
-                                                                                );
-                                                                    }
+                                                    if (paid === total) {
+                                                        swal(
+                                                                'Oops...',
+                                                                'School fees is already full paid, indicate 0',
+                                                                'error'
+                                                                );
+                                                    } else {
+                                                        //submit to server...
+                                                        //all is good perfom ajax
+                                                        $.ajax({
+                                                            type: 'POST',
+                                                            data: $("#student_additional_allocation").serialize(),
+                                                            url: "AccStudentAdditional?id=" + stud_id + "&sponsor=" + sponsor_id + "&fees=" + paid,
+                                                            success: function (result) {
+                                                                // $('#admin_feedb').html(result).show().delay(3000).fadeOut('slow');
+                                                                swal(
+                                                                        'Server Feedback',
+                                                                        result,
+                                                                        'info'
+                                                                        );
+                                                            },
+                                                            error: function (result) {
+                                                                swal(
+                                                                        'Oops...',
+                                                                        result,
+                                                                        'error'
+                                                                        );
+                                                            }
 
-                                                                });
-
+                                                        });
+                                                    }
                                                 }
                                             }
                                         }
@@ -436,6 +446,7 @@
                                     <th>Second Term</th>
                                     <th>Third Term</th>
                                     <th>Total</th>
+                                    <th>Paid</th>
                                 </tr>
                             </thead>
                         </table>
@@ -491,12 +502,17 @@
                         </div>
                     </div>
                     <div class="row col s6 offset-l4">
-                        <button id="alocate_btn" style="width: 50%;" class="btn btn-large waves-effect waves-light" type="button" name="action">Save
-                            <i class="material-icons right">send</i>
+                        <button id="alocate_btn" class="btn btn-large waves-effect waves-light" type="button" name="action">ALLOCATE FUNDS TO THIS STUDENT
+                            <i class="material-icons left">send</i>
                         </button>
                     </div>
                     <div class="row col s6 offset-l4">
-                        <a href="#!" style="width: 50%;" class=" btn-large modal-action modal-close waves-effect waves-green btn-flat ">close</a>
+                        <button id="additonal_alocate_btn" onclick="allocateAdditional();"  class="btn btn-large waves-effect waves-light grey" type="button" name="action">Make Additional allocations
+                            <i class="material-icons left">add</i>
+                        </button>
+                    </div>
+                    <div class="row col s6 offset-l6">
+                        <a href="#!" class="btn-large modal-action modal-close waves-effect waves-green btn-flat ">close</a>
                     </div>
                 </div>
             </form>

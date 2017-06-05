@@ -30,7 +30,7 @@
 
         <nav style="background-color: white;">
             <div style class="nav-wrapper">
-                <a href="../intro/index.jsp" style="color: black;" class="brand-logo">SponsorKonnect</a>
+                <a href="http://localhost:8084/SponsorKonnect-master/" style="color: black;" class="brand-logo">SponsorKonnect</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a style="color: black;" href="login.jsp">Login?</a></li>
                 </ul>

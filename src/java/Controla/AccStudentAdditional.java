@@ -37,11 +37,14 @@ public class AccStudentAdditional extends HttpServlet {
                 if (!fees.isEmpty()) {
 
                     //check school fees is fully paid.....
-                    if (!ac.isPaid(stud_id, fees)) {
+                    System.out.println("FEESSS : " + fees);
 
+                    if (ac.additionalAllocation(stud_id, school, upkeep, other, sponsor)) {
+                        out.print("  <div id='err' class='alert alert-success' role='alert' style='margin:4%;' >Additional Allocaton successfully made</div>");
                     } else {
-                        out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >School fees fully paid</div>");
+                        out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Error in making additional payments</div>");
                     }
+
                 } else {
                     out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to determine School fees</div>");
                 }

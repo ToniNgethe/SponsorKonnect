@@ -120,6 +120,30 @@
         <servlet-name>AccStudentAdditional</servlet-name>
         <servlet-class>Controla.AccStudentAdditional</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewSponsorApplication</servlet-name>
+        <servlet-class>Controla.NewSponsorApplication</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopulateSponsorApplicants</servlet-name>
+        <servlet-class>Controla.PopulateSponsorApplicants</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AssignNewSponsorIdServ</servlet-name>
+        <servlet-class>Controla.AssignNewSponsorIdServ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountantLogout</servlet-name>
+        <servlet-class>Controla.AccountantLogout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SocialLogout</servlet-name>
+        <servlet-class>Controla.SocialLogout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLogOut</servlet-name>
+        <servlet-class>Controla.AdminLogOut</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -239,6 +263,30 @@
     <servlet-mapping>
         <servlet-name>AccStudentAdditional</servlet-name>
         <url-pattern>/AccStudentAdditional</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewSponsorApplication</servlet-name>
+        <url-pattern>/NewSponsorApplication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopulateSponsorApplicants</servlet-name>
+        <url-pattern>/PopulateSponsorApplicants</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignNewSponsorIdServ</servlet-name>
+        <url-pattern>/AssignNewSponsorIdServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountantLogout</servlet-name>
+        <url-pattern>/AccountantLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SocialLogout</servlet-name>
+        <url-pattern>/SocialLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogOut</servlet-name>
+        <url-pattern>/AdminLogOut</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

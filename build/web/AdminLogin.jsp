@@ -8,8 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-
         <%
             String msg = (String) request.getAttribute("msg");
             if (msg == null) {
@@ -35,7 +33,7 @@
 
                 <div class="row center">
                     <div class="col s5 offset-l4" style="margin-bottom:  -8%;">
-                        <img src="img/sponsor_logo.png" alt="" style="width: 70%;"/>
+                        <img src="img/sponsor_logo.png" alt="" style="width: 70%;" />
                     </div>  
                 </div>
 

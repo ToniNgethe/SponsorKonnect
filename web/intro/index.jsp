@@ -47,15 +47,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand topnav" href="#">Sponsor Konnect</a>
+                    <a class="navbar-brand topnav" href="#"> <img src="././img/sponsor_logo.png" alt="" style="margin-top: -30%;width: 73%;"/></a>
+
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-             
-                            <a href="././login.jsp" >Login</a>
+
+                            <a href="././login.jsp" >Sponsor Login</a>
+                        </li>
+                        <li>
+
+                            <a href="././login.jsp" >Student Login</a>
                         </li>
                         <li>
                             <a href="#about">About</a>
@@ -77,7 +82,7 @@
         </nav>
 
 
-            
+
         <!-- Header -->
         <a name="about"></a>
         <div class="intro-header">
@@ -89,17 +94,7 @@
                             <h1>SponsorKonnect</h1>
                             <h3>Continuing children education</h3>
                             <hr class="intro-divider">
-                            <!--                        <ul class="list-inline intro-social-buttons">
-                                                        <li>
-                                                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                                                        </li>
-                                                    </ul>-->
+
                         </div>
                     </div>
                 </div>
@@ -122,7 +117,7 @@
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Are you a bright student looking for sponsorship:<br>SponsorKonnect got your back</h2>
                         <p class="lead">SponsorKonnect main goal is to provide education to needy children. Ounce applied, it will help you connect to sponsor to take you through your education phase</p>
-                        <a id="toRegister" style="margin-bottom: 10px" type="button" class="btn btn-success" href="StudentRegister.jsp"> Apply now</a>
+                        <a id="toRegister" style="margin-bottom: 10px" type="button" class="btn btn-success" href="././Register.jsp"> Apply now</a>
                     </div>
                     <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                         <img class="img-responsive" src="intro/img/ipad.jpeg" alt="">
@@ -145,7 +140,7 @@
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Looking to <br>Sponsor a child Education?</h2>
                         <p class="lead">Apply with Sponsor Konnect and will get back to you promptly</p>
-                        <button style="margin-bottom: 10px" type="button" class="btn btn-success"> Sponsor a child </button>
+                        <a  href="././SponsorApply.jsp" style="margin-bottom: 10px" type="button" class="btn btn-success"> Sponsor a child </a>
                     </div>
                     <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                         <img class="img-responsive" src="intro/img/continuing.jpg" alt="">
@@ -168,7 +163,7 @@
                         <div class="clearfix"></div>
                         <h2 class="section-heading">Help us<br> To help others</h2>
                         <p class="lead">Feel generous by supporting our efforts by donating the small amount you have</p>
-                        <button style="margin-bottom: 10px" type="button" class="btn btn-success"> Donate </button>
+                        <button style="margin-bottom: 10px" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"> Donate </button>
                     </div>
                     <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                         <img class="img-responsive" src="intro/img/kids.jpg" alt="">
@@ -210,7 +205,29 @@
 
         </div>
         <!-- /.banner -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header alert-success">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title " id="myModalLabel">Follow the following steps to make a donation.Thank you in Advance</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>To pay for goods and services via Lipa na M-pesa,</h3>
+                        <br>
+                        <h4>Step 1: Go to M-PESA on your phone</h4>
+                        <h4>Step 2: Select Lipa na M-pesa option in the drop-down</h4>
+                        <h4>Step 3: Select the Pay Bill option</h4>
+                        <h4>Step 4:  Enter the business number 206206</h4>
+                        <h4>Step 5: asks for account number, which is automatically generated based on the service you used.</h4>
+                        <h4>Step 6: Enter the amount, which was generated as an invoice.</h4>
+                        <h4>Step 7: Enter M-pesa Pin Number and Press Send</h4>
+                    </div>
 
+                </div>
+            </div>
+        </div>
         <!-- Footer -->
         <footer>
             <div class="container">
@@ -231,6 +248,18 @@
                             <li class="footer-menu-divider">&sdot;</li>
                             <li>
                                 <a href="#contact">Contact</a>
+                            </li>
+                             <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a href="././AccountantLogin.jsp">Accountant</a>
+                            </li>
+                             <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a href="././SocialWorkerLogin.jsp">Social Worker</a>
+                            </li>
+                             <li class="footer-menu-divider">&sdot;</li>
+                            <li>
+                                <a href="././AdminLogin.jsp">Admin</a>
                             </li>
                         </ul>
                         <p class="copyright text-muted small">Copyright &copy; SponsorKonnect 2017. All Rights Reserved</p>

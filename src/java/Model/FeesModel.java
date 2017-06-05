@@ -16,17 +16,27 @@ public class FeesModel {
     private double second;
     private double third;
     private double total;
-
-    public FeesModel(int id, String name, double first, double second, double third, double total) {
+    private double paid;
+    
+    public FeesModel(int id, String name, double first, double second, double third, double total, double paid) {
         this.id = id;
         this.name = name;
         this.first = first;
         this.second = second;
         this.third = third;
         this.total = total;
+        this.paid = paid;
     }
 
     public FeesModel() {
+    }
+
+    public double getPaid() {
+        return paid;
+    }
+
+    public void setPaid(double paid) {
+        this.paid = paid;
     }
 
     public int getId() {
