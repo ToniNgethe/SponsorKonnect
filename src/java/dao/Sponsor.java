@@ -5,10 +5,14 @@
  */
 package dao;
 
+import Model.AssignedStudentModel;
+import Model.SponosorModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +28,102 @@ public class Sponsor {
 
     public Sponsor() {
         conn = DBUtils.DBUtil.getConnection();
+    }
+    
+    public List<AssignedStudentModel> assignedList(String sponsor){
+        List<AssignedStudentModel> myList = new ArrayList<>();
+        
+        String query = "SELECT student FROM student_sponsor WHERE sponsor = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, sponsor);
+            
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                
+                String q2= "SELECT * FROM student_personal WHERE stud_id = ?";
+                PreparedStatement p = conn.prepareStatement(q2);
+                p.setString(1, rs.getString("student"));
+                
+                ResultSet r = p.executeQuery();
+                
+                while(r.next()){
+                    
+                    AssignedStudentModel ad = new AssignedStudentModel();
+                    ad.setStud_id(r.getString("stud_id"));
+                    ad.setF_name(r.getString("f_name"));
+                    ad.setL_name(r.getString("l_name"));
+                    ad.setS_name(r.getString("s_name"));
+                    
+                    myList.add(ad);
+                }
+              
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Sponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return myList;
+    }
+    
+    public int checkLogin(String id, String pass){
+        int a = 0;
+        String query = "SELECT * FROM Sponsor WHERE sponsor_id = ? AND pass = ?";
+        
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            pst.setString(2,pass);
+            
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                
+                a = rs.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Sponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return a;
+    }
+    
+    public SponosorModel getSponsorDetails(String id, String pass){
+       SponosorModel sp  = new SponosorModel();
+       // SELECT `id`, `sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `pass` FROM `Sponsor` WHERE 1
+        String query = "SELECT * FROM Sponsor WHERE sponsor_id = ? AND pass = ?";
+        
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+            pst.setString(2,pass);
+            
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                
+            
+                sp.setSponsor_id(rs.getString("sponsor_id"));
+                sp.setName(rs.getString("name"));
+                sp.setNumber(rs.getString("mobile"));
+                sp.setEmail(rs.getString("email"));
+                sp.setMeans(rs.getString("means"));
+                sp.setType(rs.getString("type"));
+                sp.setCompany(rs.getString("company"));
+                sp.setPass(rs.getString("pass"));
+                
+           
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Sponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return sp;
     }
     
     public boolean isNew(String email){

@@ -144,6 +144,22 @@
         <servlet-name>AdminLogOut</servlet-name>
         <servlet-class>Controla.AdminLogOut</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SponsorLoginServ</servlet-name>
+        <servlet-class>Controla.SponsorLoginServ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSponsorAssignedStudServ</servlet-name>
+        <servlet-class>Controla.GetSponsorAssignedStudServ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SponsorLogout</servlet-name>
+        <servlet-class>Controla.SponsorLogout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetStudentSocialReport</servlet-name>
+        <servlet-class>Controla.GetStudentSocialReport</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -287,6 +303,22 @@
     <servlet-mapping>
         <servlet-name>AdminLogOut</servlet-name>
         <url-pattern>/AdminLogOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SponsorLoginServ</servlet-name>
+        <url-pattern>/SponsorLoginServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSponsorAssignedStudServ</servlet-name>
+        <url-pattern>/GetSponsorAssignedStudServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SponsorLogout</servlet-name>
+        <url-pattern>/SponsorLogout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetStudentSocialReport</servlet-name>
+        <url-pattern>/GetStudentSocialReport</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

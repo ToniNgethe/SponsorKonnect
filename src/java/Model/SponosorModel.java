@@ -10,14 +10,13 @@ package Model;
  * @author toni
  */
 public class SponosorModel {
-    
-    private String sponsor_id, name, number, email, means, type, company;
-  
+
+    private String sponsor_id, name, number, email, means, type, company, pass;
+
     public SponosorModel() {
     }
 
-   
-       public SponosorModel(String sponsor_id, String name, String number, String email, String means, String type, String company) {
+    public SponosorModel(String sponsor_id, String name, String number, String email, String means, String type, String company, String pass) {
         this.sponsor_id = sponsor_id;
         this.name = name;
         this.number = number;
@@ -25,9 +24,18 @@ public class SponosorModel {
         this.means = means;
         this.type = type;
         this.company = company;
-     
+        this.pass = pass;
     }
 
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    
     public String getSponsor_id() {
         return sponsor_id;
     }
@@ -83,6 +91,5 @@ public class SponosorModel {
     public void setCompany(String company) {
         this.company = company;
     }
-    
-    
+
 }

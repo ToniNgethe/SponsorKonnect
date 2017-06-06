@@ -229,8 +229,8 @@ public class Admin {
     public boolean addSponsor(SponosorModel sp) {
         boolean success = false;
         
-        String query = "INSERT INTO `Sponsor`(`sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`) "
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `Sponsor`(`sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `pass`) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = conn.prepareStatement(query);
             pst.setString(1, sp.getSponsor_id());
@@ -240,6 +240,7 @@ public class Admin {
             pst.setString(5, sp.getMeans());
             pst.setString(6, sp.getType());
             pst.setString(7, sp.getCompany());
+            pst.setString(8, sp.getPass());
             
             int a = pst.executeUpdate();
             if (a > 0) {

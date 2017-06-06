@@ -56,7 +56,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
 
-                            <a href="././login.jsp" >Sponsor Login</a>
+                            <a href="././SponsorLogin.jsp" >Sponsor Login</a>
                         </li>
                         <li>
 

@@ -47,7 +47,7 @@
 
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    
+
                     <li><a href="./AdminLogOut">Log out</a></li>
                 </ul>
 
@@ -658,6 +658,12 @@
                                                             <label  for="sponsor_company">Sponsor Company</label>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="input-field col s12">
+                                                            <input required="true" name="new_sponsor_pass" id="sponsor_password" type="text" class="validate">
+                                                            <label  for="sponsor_password">Sponsor Password</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -859,21 +865,23 @@
                                         var type = data.type;
                                         var company = data.company;
 
-                                        swal({
-                                            title: 'Enter sponsor id to assign ' + name,
-                                            input: 'text',
-                                            showCancelButton: true,
-                                            inputValidator: function (value) {
-                                                return new Promise(function (resolve, reject) {
-                                                    if (value) {
-                                                        resolve();
-                                                    } else {
-                                                        reject('Please enter sponsor id assign');
-                                                    }
-                                                });
-                                            }
-                                        }).then(function (result) {
 
+                                        swal.setDefaults({
+                                            input: 'text',
+                                            confirmButtonText: 'Next &rarr;',
+                                            showCancelButton: true,
+                                            animation: false,
+                                            progressSteps: ['1', '2']
+                                        });
+
+                                        var steps = [
+
+                                            'Enter sponsor id',
+                                            'Enter sponsor password'
+                                        ];
+
+                                        swal.queue(steps).then(function (result) {
+                                            swal.resetDefaults();
                                             $.ajax({
                                                 type: 'GET',
                                                 data: {
@@ -883,7 +891,8 @@
                                                     means: means,
                                                     type: type,
                                                     company: company,
-                                                    sponsor_id: result},
+                                                    sponsor_id: result[0],
+                                                    pass: result[1]},
                                                 url: "AssignNewSponsorIdServ",
                                                 success: function (res) {
 
@@ -902,8 +911,54 @@
                                                 }
 
                                             });
-
+                                        }, function () {
+                                            swal.resetDefaults();
                                         });
+//                                        swal({
+//                                            title: 'Enter sponsor id to assign ' + name,
+//                                            input: 'text',
+//                                            showCancelButton: true,
+//                                            inputValidator: function (value) {
+//                                                return new Promise(function (resolve, reject) {
+//                                                    if (value) {
+//                                                        resolve();
+//                                                    } else {
+//                                                        reject('Please enter sponsor id assign');
+//                                                    }
+//                                                });
+//                                            }
+//                                        }).then(function (result) {
+//
+//                                            $.ajax({
+//                                                type: 'GET',
+//                                                data: {
+//                                                    name: name,
+//                                                    number: number,
+//                                                    email: email,
+//                                                    means: means,
+//                                                    type: type,
+//                                                    company: company,
+//                                                    sponsor_id: result},
+//                                                url: "AssignNewSponsorIdServ",
+//                                                success: function (res) {
+//
+//                                                    swal(
+//                                                            'Server Feedback',
+//                                                            res,
+//                                                            'info'
+//                                                            );
+//                                                },
+//                                                error: function (res) {
+//                                                    swal(
+//                                                            'Server Feedback',
+//                                                            res,
+//                                                            'info'
+//                                                            );
+//                                                }
+//
+//                                            });
+//
+//                                        });
                                     });
                                 });
 

@@ -5,10 +5,16 @@
  */
 package Controla;
 
-import Model.SponosorModel;
-import dao.Admin;
+import Model.AssignedStudentModel;
+import Model.FeesModel;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+import dao.Sponsor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,42 +24,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author toni
  */
-public class AssignNewSponsorIdServ extends HttpServlet {
+public class GetSponsorAssignedStudServ extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/json");
 
-        String sponsor_id = request.getParameter("sponsor_id");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String means = request.getParameter("means");
-        String type = request.getParameter("type");
-        String company = request.getParameter("company");
-        String number = request.getParameter("number");
-        String pass =request.getParameter("pass");
+        String sponsor = request.getParameter("sponsor");
+        Sponsor sp = new Sponsor();
 
-        Admin ad = new Admin();
+        List<AssignedStudentModel> list = sp.assignedList(sponsor);
 
-        
-        if (!sponsor_id.isEmpty() && !name.isEmpty() && !email.isEmpty() && !means.isEmpty() && !type.isEmpty() && !company.isEmpty() && !pass.isEmpty()) {
+        Gson gson = new Gson();
+        JsonElement elemet = gson.toJsonTree(list, new TypeToken<List<AssignedStudentModel>>() {
+        }.getType());
 
-            if (!ad.checkSponsorId(sponsor_id)) {
-                SponosorModel sp = new SponosorModel(sponsor_id, name, number, email, means, type, company,pass);
-                if (ad.addSponsor(sp)) {
-                    out.print("  <div id='err' class='alert alert-success' role='alert' style='margin:4%;' >Sponsor successfully assigned.</div>");
-                } else {
-                    out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Error in assigning sponsor id</div>");
-                }
-
-            } else {
-                out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Sponsor with that id already exists</div>");
-            }
-
-        } else {
-            out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to get sponsor details</div>");
-        }
+        JsonArray jsonArray = elemet.getAsJsonArray();
+        response.getWriter().print(jsonArray);
 
     }
 

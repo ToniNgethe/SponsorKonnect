@@ -6,55 +6,59 @@
 package Controla;
 
 import Model.SponosorModel;
-import dao.Admin;
+import Model.StudentModel;
+import dao.Sponsor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author toni
  */
-public class AssignNewSponsorIdServ extends HttpServlet {
+public class SponsorLoginServ extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        String id = request.getParameter("sponsor_id");
+        String pass = request.getParameter("sponsor_pass");
+        String msg = "";
 
-        String sponsor_id = request.getParameter("sponsor_id");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String means = request.getParameter("means");
-        String type = request.getParameter("type");
-        String company = request.getParameter("company");
-        String number = request.getParameter("number");
-        String pass =request.getParameter("pass");
+        if (!id.isEmpty() && !pass.isEmpty()) {
 
-        Admin ad = new Admin();
+            Sponsor sp = new Sponsor();
 
-        
-        if (!sponsor_id.isEmpty() && !name.isEmpty() && !email.isEmpty() && !means.isEmpty() && !type.isEmpty() && !company.isEmpty() && !pass.isEmpty()) {
+            int s= sp.checkLogin(id, pass);
+            
+            if (s != 0) {
+                
+                SponosorModel sss = sp.getSponsorDetails(id, pass);
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("SPONSOR_MODEL", sss);
 
-            if (!ad.checkSponsorId(sponsor_id)) {
-                SponosorModel sp = new SponosorModel(sponsor_id, name, number, email, means, type, company,pass);
-                if (ad.addSponsor(sp)) {
-                    out.print("  <div id='err' class='alert alert-success' role='alert' style='margin:4%;' >Sponsor successfully assigned.</div>");
-                } else {
-                    out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Error in assigning sponsor id</div>");
-                }
-
+                response.sendRedirect("SponsorPanel.jsp");
             } else {
-                out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Sponsor with that id already exists</div>");
+                msg = "<div class='alert alert-danger alert-dismissible' role='alert' style='margin-top: 10px;'>"
+                        + "  Error! Wrong credentials"
+                        + "</div>";
+                request.setAttribute("msg", msg);
+                request.getRequestDispatcher("SponsorLogin.jsp").forward(request, response);
             }
 
         } else {
-            out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin:4%;' >Unable to get sponsor details</div>");
+            //redirect to login
+            msg = "<div class='alert alert-danger alert-dismissible' role='alert' style='margin-top: 10px;'>"
+                    + "  Error! Fields empty"
+                    + "</div>";
+            request.setAttribute("msg", msg);
+            request.getRequestDispatcher("SponsorLogin.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

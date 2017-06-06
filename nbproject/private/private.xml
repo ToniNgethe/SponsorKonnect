@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>web/SponsorApply.jsp</url>
-            <bookmark id="2">
-                <name/>
-                <line>185</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>src/java/Controla/GetSelectedSchool.java</url>
             <bookmark id="1">
                 <name/>
@@ -17,15 +9,23 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>web/SponsorApply.jsp</url>
+            <bookmark id="2">
+                <name/>
+                <line>185</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/SponsorApply.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/Donate.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/Register.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/login.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AdminLogin.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/intro/index.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/StudentPanel.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/GetStudentReports.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/SponsorPanel.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/NewSponsorApplication.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/GetStudentSocialReport.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/js/admin.js</file>
         </group>
     </open-files>
 </project-private>

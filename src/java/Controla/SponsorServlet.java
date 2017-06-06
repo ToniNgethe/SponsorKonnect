@@ -40,6 +40,7 @@ public class SponsorServlet extends HttpServlet {
         String comm_means = request.getParameter("sponsormeans");
         String type = request.getParameter("sponsotype");
         String company = request.getParameter("new_sponsor_company");
+        String pas = request.getParameter("new_sponsor_pass");
 
         //making commits params
         String id = request.getParameter("name");
@@ -57,7 +58,7 @@ public class SponsorServlet extends HttpServlet {
         if (action.equals("commits")) {
 
             //check if fields are empty
-            if (!number.isEmpty() && !name.isEmpty() && !mobile.isEmpty() && !email.isEmpty() && !company.isEmpty() && !comm_means.isEmpty() && !type.isEmpty()) {
+            if (!number.isEmpty() && !name.isEmpty() && !mobile.isEmpty() && !email.isEmpty() && !company.isEmpty() && !comm_means.isEmpty() && !type.isEmpty() && !pas.isEmpty()) {
 
                 if (!comm_means.equals("Choose your communication means")) {
                     if (!type.equals("Type of Sponsorship")) {
@@ -66,7 +67,7 @@ public class SponsorServlet extends HttpServlet {
                         if (!admin.checkSponsorId(number)) {
 
                             //sponsor does not exist..so add him/her
-                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company);
+                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company,pas);
                             if (admin.addSponsor(sp)) {
 
                                 //was a success
