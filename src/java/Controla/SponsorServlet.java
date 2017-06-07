@@ -67,7 +67,7 @@ public class SponsorServlet extends HttpServlet {
                         if (!admin.checkSponsorId(number)) {
 
                             //sponsor does not exist..so add him/her
-                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company,pas);
+                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company, pas);
                             if (admin.addSponsor(sp)) {
 
                                 //was a success
@@ -117,6 +117,8 @@ public class SponsorServlet extends HttpServlet {
             }
         } else if (action.equals("payments")) {
 
+            String bank_name = request.getParameter("sponsor_bank");
+            String bank_slip = request.getParameter("sponsor_bank_slip");
             //check if sponsor id exists
             if (admin.checkSponsorId(sponsor_id)) {
 
@@ -125,7 +127,7 @@ public class SponsorServlet extends HttpServlet {
 
                     if (admin.checkTotalPayment(sponsor_id, amount_paid)) {
                         //record payment
-                        if (admin.savePayment(sponsor_id, amount_paid, 0)) {
+                        if (admin.savePayment(sponsor_id, amount_paid, 0, bank_name, bank_slip)) {
 
                             //successfully saved
                             out.print("  <div class='alert alert-success' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;'>Payment made successfully</div>");
@@ -150,10 +152,12 @@ public class SponsorServlet extends HttpServlet {
 
         } else if (action.equals("pay")) {
 
+            String bank_name = request.getParameter("make_sponsor_bank");
+            String bank_slip = request.getParameter("make_ponsor_bank_slip");
             //check sponsor id
             if (admin.checkSponsorId(sponsor_pay_id)) {
 
-                if (admin.savePayment(sponsor_pay_id, payment_made, 1)) {
+                if (admin.savePayment(sponsor_pay_id, payment_made, 1,bank_name, bank_slip)) {
                     //successfully saved
                     out.print("  <div class='alert alert-success' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;'>Payment made successfully</div>");
                 } else {

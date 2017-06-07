@@ -28,58 +28,108 @@ public class GetStudentSocialReport extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/plain");
         PrintWriter out = response.getWriter();
-        
+
         String stud_id = request.getParameter("stud_id");
-        
+        String action = request.getParameter("action");
+
         Connection conn = DBUtils.DBUtil.getConnection();
-        
-        String query = "SELECT * FROM SocialVisits WHERE stud_id = ?";
-        PreparedStatement pst;
-        try {
-            pst = conn.prepareStatement(query);
-            pst.setString(1, stud_id);
-            
-            ResultSet rs = pst.executeQuery();
-            
-            if (!rs.isBeforeFirst()) {
 
-                out.println("<div class='alert alert-danger'>Student assesment report has not been filed</div>");
+        if (action.equals("soc")) {
 
-            } else {
+            String query = "SELECT * FROM SocialVisits WHERE stud_id = ?";
+            PreparedStatement pst;
+            try {
+                pst = conn.prepareStatement(query);
+                pst.setString(1, stud_id);
 
-                if (rs.next()) {
-                 //   out.print("<div class='row'> <img src='ImageServlet?id=" + name + "' class='circle' alt='' style='width: 170px; height: 170px; margin-left:36%;'/> </di>");
-                 
-                    out.print("<div class='card'>");
-                    out.print("<div class='card-header alert'> <span class='new badge cyan left' data-badge-caption='Students family background Condition'></span> </div>");
-                    out.print("<div class='card-content'>" + rs.getString("background") + "</div>");
-                    out.print("</div>");
+                ResultSet rs = pst.executeQuery();
 
-                    out.print("<div class='card'>");
-                    out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Current family composition and/or household membership'></span></div>");
-                    out.print("<div class='card-content'>" + rs.getString("composition") + "</div>");
-                    out.print("</div>");
+                if (!rs.isBeforeFirst()) {
 
-                    out.print("<div class='card'>");
-                    out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Ethnicity, religion, and spirituality '></span></div>");
-                    out.print("<div class='card-content'>" + rs.getString("ethnicity") + "</div>");
-                    out.print("</div>");
+                    out.println("<div class='alert alert-danger'>Student assesment report has not been filed</div>");
 
-                    out.print("<div class='card'>");
-                    out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Physical functioning, health concerns, illness, disabilities, medications'></span><h6></h6></div>");
-                    out.print("<div class='card-content'>" + rs.getString("health") + "</div>");
-                    out.print("</div>");
+                } else {
+
+                    if (rs.next()) {
+                        //   out.print("<div class='row'> <img src='ImageServlet?id=" + name + "' class='circle' alt='' style='width: 170px; height: 170px; margin-left:36%;'/> </di>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'> <span class='new badge cyan left' data-badge-caption='Students family background Condition'></span> </div>");
+                        out.print("<div class='card-content'>" + rs.getString("background") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Current family composition and/or household membership'></span></div>");
+                        out.print("<div class='card-content'>" + rs.getString("composition") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Ethnicity, religion, and spirituality '></span></div>");
+                        out.print("<div class='card-content'>" + rs.getString("ethnicity") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Physical functioning, health concerns, illness, disabilities, medications'></span><h6></h6></div>");
+                        out.print("<div class='card-content'>" + rs.getString("health") + "</div>");
+                        out.print("</div>");
+
+                    }
+                    out.print("</ul>");
 
                 }
-                out.print("</ul>");
 
+            } catch (SQLException ex) {
+                Logger.getLogger(GetStudentSocialReport.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(GetStudentSocialReport.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (action.equals("acc")) {
+            String query = "SELECT * FROM student_allocation WHERE stud_id = ?";
+            PreparedStatement pst;
+            try {
+                pst = conn.prepareStatement(query);
+                pst.setString(1, stud_id);
+
+                ResultSet rs = pst.executeQuery();
+
+                if (!rs.isBeforeFirst()) {
+
+                    out.println("<div class='alert alert-danger'>Student finance allocation has not been made yet</div>");
+
+                } else {
+
+                    if (rs.next()) {
+                        //   out.print("<div class='row'> <img src='ImageServlet?id=" + name + "' class='circle' alt='' style='width: 170px; height: 170px; margin-left:36%;'/> </di>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'> <span class='new badge cyan left' data-badge-caption='Amount allocatd to school'></span> </div>");
+                        out.print("<div class='card-content'>" + rs.getDouble("school") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Amount allocated to upkeep'></span></div>");
+                        out.print("<div class='card-content'>" + rs.getDouble("upkeep") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Others'></span></div>");
+                        out.print("<div class='card-content'>" + rs.getDouble("others") + "</div>");
+                        out.print("</div>");
+
+                        out.print("<div class='card'>");
+                        out.print("<div class='card-header alert'><span class='new badge cyan left' data-badge-caption='Date allocated'></span><h6></h6></div>");
+                        out.print("<div class='card-content'>" + rs.getDate("date") + "</div>");
+                        out.print("</div>");
+
+                    }
+                    out.print("</ul>");
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(GetStudentSocialReport.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        
-   
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

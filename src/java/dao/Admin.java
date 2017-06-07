@@ -340,14 +340,14 @@ public class Admin {
     }
 
     //save payment
-    public boolean savePayment(String id, String amount, int type) {
+    public boolean savePayment(String id, String amount, int type,String bank,String slip) {
         boolean isSaved = false;
 
         //get todays date
         java.util.Date today = new java.util.Date();
         java.sql.Date t = new java.sql.Date(today.getTime());
         
-        String query = "INSERT INTO `sponsor_payments`(`sponsor_id`, `amount`, `date`, `type`) VALUES ( ?, ?, ?, ?)";
+        String query = "INSERT INTO `sponsor_payments`(`sponsor_id`, `amount`, `date`, `type`, `bank`, `slip`) VALUES ( ?, ?, ?, ?, ?, ?)";
         try {
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
@@ -355,6 +355,8 @@ public class Admin {
             pst.setDouble(2, Double.valueOf(amount));
             pst.setDate(3, t);
             pst.setInt(4, type);
+            pst.setString(5, bank);
+            pst.setString(6, slip);
             
             int a = pst.executeUpdate();
             if (a > 0) {

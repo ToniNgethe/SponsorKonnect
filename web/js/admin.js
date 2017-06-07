@@ -275,23 +275,6 @@ function searchSponsorForPay() {
 
 $(document).ready(function () {
 
-    var last_id = localStorage.getItem('tab_id');
-    if (last_id) {
-        $('#nac a').removeClass('active');
-        // $('.tab-content').removeClass('active');
-        $("#nac a").eq(last_id.match(/\d+/)[0] - 1).addClass('active');
-        $("#" + last_id).addClass('active');
-    }
-    $('#nac a').click(function () {
-        var tab_id = $(this).attr('data-tab');
-        $('#nac a').removeClass('active');
-        // $('.tab-content').removeClass('current');
-
-        $(this).addClass('active');
-        $("#" + tab_id).addClass('active');
-        localStorage.setItem('tab_id', tab_id);
-    });
-
     $("#school_lists").on('change', function () {
 
 
@@ -301,55 +284,112 @@ $(document).ready(function () {
     //add school fees stracture
     $('#btn_add_school_fee').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#feeStractureForm").serialize(),
-            url: "SchoolServlet?action=fees",
-            success: function (result) {
-                Materialize.toast(result, 3000, 'round');
 
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
-
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#feeStractureForm").serialize(),
+                url: "SchoolServlet?action=fees",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+            });
         });
+
     });
 
     //register new school
     $('#btn_add_school').click(function (event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#newSchoolData").serialize(),
-            url: "SchoolServlet?action=add",
-            success: function (result) {
-                Materialize.toast(result, 3000, 'round');
 
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
 
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#newSchoolData").serialize(),
+                url: "SchoolServlet?action=add",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+
+                }
+
+            });
         });
+
     });
 
     //assign sponsor
     $('#btn_assign_student').click(function (event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#assign_student").serialize(),
-            url: "AssignSponsorServlet",
-            success: function (result) {
-                Materialize.toast(result, 3000);
 
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
 
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+            $.ajax({
+                type: 'POST',
+                data: $("#assign_student").serialize(),
+                url: "AssignSponsorServlet",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
 
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
+
+            });
         });
     });
 
@@ -514,20 +554,35 @@ $(document).ready(function () {
     });
 
     $('#btn_save_school_fee').click(function () {
+        swal({
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
 
-        $.ajax({
-            type: 'POST',
-            data: $("#editFeeStractureForm").serialize(),
-            url: "SchoolServlet?action=editFee",
-            success: function (data) {
-
-                Materialize.toast(data, 2000);
-            }, error: function (data) {
-                alert("error:" + data);
-            }
+            $.ajax({
+                type: 'POST',
+                data: $("#editFeeStractureForm").serialize(),
+                url: "SchoolServlet?action=editFee",
+                success: function (data) {
+                    swal(
+                            'Server Feedback',
+                            data,
+                            'info'
+                            );
+                }, error: function (data) {
+                    swal(
+                            'Server Feedback',
+                            data,
+                            'info'
+                            );
+                }
+            });
         });
     });
-
-
 });
 

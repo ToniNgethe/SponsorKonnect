@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 01, 2017 at 06:14 AM
+-- Generation Time: Jun 07, 2017 at 11:34 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -43,7 +43,7 @@ CREATE TABLE `accountant` (
 
 INSERT INTO `accountant` (`id`, `name`, `number`, `email`, `location`, `password`) VALUES
 (1, 'Tonii', '0721827382', 'toni@gmail.com', 'nairobi', 'tonitoni'),
-(2, 'GRace', '2132', 'dd@gmail.com', 'dfsidfnk', 'djfnsdjkfn');
+(2, 'Grace', '2132', 'g@gmail.com', 'nakuru', 'grace');
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,8 @@ CREATE TABLE `SocialVisits` (
 --
 
 INSERT INTO `SocialVisits` (`id`, `stud_id`, `social_worker`, `background`, `composition`, `ethnicity`, `health`, `date`) VALUES
-(1, '3', 'f@gmail.com', 'Relevance:  the information included in the report should have a clear connection to the client’s presenting concern and/or the reason the social worker and agency are involved with the client.\r\nFocus on client strengths:  avoid preoccupation with pathology and family disorganization, personal weakness, and limitation.  Focus on what the client/family can do.  Successful intervention is built on client strength; the social assessment report must identify these strengths', 'Confidentiality and client access:  respect the client’s privacy.  Assume that the client may want to read the report and has a right to do so.  Do not include information that you would not want the client or family (or their lawyer) to read.\r\nObjectivity: select words that express your observations in an accurate and nonjudgmental manner. Do not present an opinion as if it were a fact.  Support your conclusions with data.', 'Confidentiality and client access:  respect the client’s privacy.  Assume that the client may want to read the report and has a right to do so.  Do not include information that you would not want the client or family (or their lawyer) to read.\r\nObjectivity: select words that express your observations in an accurate and nonjudgmental manner. Do not present an opinion as if it were a fact.  Support your conclusions with data', 'A social assessment report (often called a social history) focuses on and describes the social aspects of the clients functioning and their situation.\r\nSocial workers are particularly concerned about the match between client needs and the resources available to meet those needs', '');
+(1, '1', 'f@gmail.com', 'Relevance:  the information included in the report should have a clear connection to the client’s presenting concern and/or the reason the social worker and agency are involved with the client.\r\nFocus on client strengths:  avoid preoccupation with pathology and family disorganization, personal weakness, and limitation.  Focus on what the client/family can do.  Successful intervention is built on client strength; the social assessment report must identify these strengths', 'Confidentiality and client access:  respect the client’s privacy.  Assume that the client may want to read the report and has a right to do so.  Do not include information that you would not want the client or family (or their lawyer) to read.\r\nObjectivity: select words that express your observations in an accurate and nonjudgmental manner. Do not present an opinion as if it were a fact.  Support your conclusions with data.', 'Confidentiality and client access:  respect the client’s privacy.  Assume that the client may want to read the report and has a right to do so.  Do not include information that you would not want the client or family (or their lawyer) to read.\r\nObjectivity: select words that express your observations in an accurate and nonjudgmental manner. Do not present an opinion as if it were a fact.  Support your conclusions with data', 'A social assessment report (often called a social history) focuses on and describes the social aspects of the clients functioning and their situation.\r\nSocial workers are particularly concerned about the match between client needs and the resources available to meet those needs', ''),
+(2, '3', 'f@gmail.com', 'dxnzcjlksdn', 'nsjkdnfsjkn', 'sdnjkfnsjkfn', 'sajwdklnedjk', '2017-06-08');
 
 -- --------------------------------------------------------
 
@@ -181,7 +182,8 @@ CREATE TABLE `social_worker` (
 
 INSERT INTO `social_worker` (`id`, `name`, `number`, `email`, `location`, `password`) VALUES
 (1, 'faith', '073232323', 'f@gmail.com', 'nakuru', 'faithfaith'),
-(2, 'Ken', '07228122', 'ken@gmail.com', 'nai', 'ken');
+(2, 'Ken', '07228122', 'ken@gmail.com', 'nai', 'ken'),
+(3, 'Klare Gitau', '23', 'klare@gmail.com', 'Nairobi', 'klare');
 
 -- --------------------------------------------------------
 
@@ -197,16 +199,46 @@ CREATE TABLE `Sponsor` (
   `email` varchar(500) NOT NULL,
   `means` varchar(500) NOT NULL,
   `type` varchar(500) NOT NULL,
-  `company` varchar(500) NOT NULL
+  `company` varchar(500) NOT NULL,
+  `pass` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Sponsor`
 --
 
-INSERT INTO `Sponsor` (`id`, `sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`) VALUES
-(34, 'qwer', 'qwqwq', '232', 'ds@gmail.com', 'email', 'primary', 'skdmk'),
-(35, 'toni', 'SDJBHADJHBSDJH', '76372', 'D@gmail.com', 'phonenumber', 'secondary', 'fdksjhfjdfs');
+INSERT INTO `Sponsor` (`id`, `sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `pass`) VALUES
+(34, 'qwer', 'qwqwq', '232', 'ds@gmail.com', 'email', 'primary', 'skdmk', ''),
+(35, 'toni', 'SDJBHADJHBSDJH', '76372', 'D@gmail.com', 'phonenumber', 'secondary', 'fdksjhfjdfs', 'toni'),
+(36, 'reg', 'Reginah', '3892328', 'reg@gmail.com', 'phonenumber', 'primary', 'REG INC', ''),
+(37, 'gitau', 'Giatu', '(083) 923-4324', 'gitau@gmail.com', 'phonenumber', 'vocational', 'Gitau inc', ''),
+(38, 'Klare', 'Gitau', '0721942755', 'klare@gmail.com', 'phonenumber', 'secondary', 'KLARE INC', 'klare'),
+(39, 'chege', 'Giatu', '(083) 923-4324', 'chege@gmail.com', 'email', 'primary', 'Gitau inc', 'chege');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sponsor_applicants`
+--
+
+CREATE TABLE `sponsor_applicants` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `mobile` varchar(500) NOT NULL,
+  `email` varchar(500) NOT NULL,
+  `means` varchar(500) NOT NULL,
+  `type` varchar(500) NOT NULL,
+  `company` varchar(500) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sponsor_applicants`
+--
+
+INSERT INTO `sponsor_applicants` (`id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `date`) VALUES
+(1, 'Giatu', '(083) 923-4324', 'gitau@gmail.com', 'phonenumber', 'vocational', 'Gitau inc', '2017-06-04'),
+(2, 'Giatu', '(083) 923-4324', 'chege@gmail.com', 'email', 'primary', 'Gitau inc', '2017-06-04');
 
 -- --------------------------------------------------------
 
@@ -234,7 +266,12 @@ INSERT INTO `sponsor_commits` (`id`, `sponsor_id`, `amount`, `date`) VALUES
 (6, 'qwer', 60000, '2017-05-13'),
 (7, 'qwer', 60000, '2017-05-13'),
 (8, 'qwer', 60000, '2017-05-13'),
-(9, 'toni', 5000, '2017-05-14');
+(9, 'toni', 5000, '2017-05-14'),
+(10, 'REG', 5000, '2017-06-01'),
+(11, 'klare', 20000, '2017-06-06'),
+(12, 'chege', 1000, '2017-06-06'),
+(13, 'chege', 1000, '2017-06-06'),
+(14, 'gitau', 10000, '2017-06-07');
 
 -- --------------------------------------------------------
 
@@ -247,18 +284,50 @@ CREATE TABLE `sponsor_payments` (
   `sponsor_id` varchar(400) NOT NULL,
   `amount` double NOT NULL,
   `date` date NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `bank` varchar(500) NOT NULL,
+  `slip` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sponsor_payments`
 --
 
-INSERT INTO `sponsor_payments` (`id`, `sponsor_id`, `amount`, `date`, `type`) VALUES
-(4, 'toni', 50000, '2017-05-14', 0),
-(6, 'toni', 300, '2017-05-14', 0),
-(7, 'toni', 500, '2017-05-14', 1),
-(8, 'qwer', 5000, '2017-05-16', 0);
+INSERT INTO `sponsor_payments` (`id`, `sponsor_id`, `amount`, `date`, `type`, `bank`, `slip`) VALUES
+(4, 'toni', 50000, '2017-05-14', 0, '', ''),
+(6, 'toni', 300, '2017-05-14', 0, '', ''),
+(7, 'toni', 500, '2017-05-14', 1, '', ''),
+(8, 'qwer', 5000, '2017-05-16', 0, '', ''),
+(9, 'REG', 1000, '2017-06-01', 0, '', ''),
+(10, 'reg', 1000, '2017-06-01', 0, '', ''),
+(11, 'reg', 200, '2017-06-01', 0, '', ''),
+(12, 'reg', 2000, '2017-06-01', 0, '', ''),
+(13, 'reg', 800, '2017-06-01', 0, '', ''),
+(14, 'klare', 15000, '2017-06-06', 0, '', ''),
+(15, 'chege', 2000, '2017-06-06', 0, '', ''),
+(16, 'toni', 20000, '2017-06-07', 1, 'Equity', 'SSwwsdsdsd222'),
+(17, 'gitau', 5000, '2017-06-07', 0, 'Equity', 'wwewewe');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sponsor_use`
+--
+
+CREATE TABLE `sponsor_use` (
+  `id` int(11) NOT NULL,
+  `stud_id` varchar(500) NOT NULL,
+  `sponsor_id` varchar(500) NOT NULL,
+  `amount` double NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sponsor_use`
+--
+
+INSERT INTO `sponsor_use` (`id`, `stud_id`, `sponsor_id`, `amount`, `date`) VALUES
+(2, '1', 'toni', 50000, '2017-06-03');
 
 -- --------------------------------------------------------
 
@@ -303,7 +372,7 @@ CREATE TABLE `student_allocation` (
 --
 
 INSERT INTO `student_allocation` (`id`, `stud_id`, `school`, `upkeep`, `others`, `date`) VALUES
-(1, '1', 34000, 44, 444, '2017-06-01');
+(5, '1', 34000, 12000, 4000, '2017-06-03');
 
 -- --------------------------------------------------------
 
@@ -507,6 +576,12 @@ ALTER TABLE `Sponsor`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sponsor_applicants`
+--
+ALTER TABLE `sponsor_applicants`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sponsor_commits`
 --
 ALTER TABLE `sponsor_commits`
@@ -516,6 +591,12 @@ ALTER TABLE `sponsor_commits`
 -- Indexes for table `sponsor_payments`
 --
 ALTER TABLE `sponsor_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sponsor_use`
+--
+ALTER TABLE `sponsor_use`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -599,27 +680,37 @@ ALTER TABLE `selected_school`
 -- AUTO_INCREMENT for table `SocialVisits`
 --
 ALTER TABLE `SocialVisits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `social_worker`
 --
 ALTER TABLE `social_worker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Sponsor`
 --
 ALTER TABLE `Sponsor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT for table `sponsor_applicants`
+--
+ALTER TABLE `sponsor_applicants`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `sponsor_commits`
 --
 ALTER TABLE `sponsor_commits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `sponsor_payments`
 --
 ALTER TABLE `sponsor_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `sponsor_use`
+--
+ALTER TABLE `sponsor_use`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `student`
 --
@@ -629,7 +720,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `student_allocation`
 --
 ALTER TABLE `student_allocation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `student_gurdian`
 --

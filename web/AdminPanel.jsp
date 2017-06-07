@@ -40,30 +40,63 @@
                 response.sendRedirect("AdminLogin.jsp");
             }
         %>
+        <div class="navbar-fixed">
+            <nav class="nav-extended blue">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo"> <img src="img/sponsor_logo.png" style="margin-top: -30%;" alt=""/></a>
 
-        <nav class="nav-extended blue">
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo"> <img src="img/sponsor_logo.png" style="margin-top: -30%;" alt=""/></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="./AdminLogOut">Log out</a></li>
+                    </ul>
 
-                    <li><a href="./AdminLogOut">Log out</a></li>
-                </ul>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $('#nac a[href="' + getCookie('lastTab') + '"]').tabs();
+                        $(".add").click(function () {
 
-            </div>
-            <div class="nav-content">
-                <ul id="nac" class="tabs tabs-transparent">
-                    <li class="tab" ><a data-tab="tab1" class="active" href="#test1"><i class="material-icons left">home</i>Workers Section</a></li>
-                    <li class="tab" ><a data-tab="tab2" href="#test2" ><i class="material-icons left">wc</i>Sponsors Section</a></li>
-                    <li class="tab" ><a data-tab="tab3" href="#test3"  onclick="return getAllStudents();"><i class="material-icons left">account_box</i>Student Section</a></li>
-                    <li class="tab" ><a data-tab="tab4" href="#test4" ><i class="material-icons left">school</i>School Information</a></li>
-                </ul>
-            </div>
-        </nav>
 
+                            var addressValue = $('ul.tabs .active').attr('href');
+                            $('.tabs-content ' + active).show();
+                            setCookie('lastTab', addressValue, 100);
+                        });
+
+                        function setCookie(cname, cvalue, exdays) {
+                            var d = new Date();
+                            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                            var expires = "expires=" + d.toUTCString();
+                            document.cookie = cname + "=" + cvalue + "; " + expires;
+                        }
+                        function getCookie(cname) {
+                            var name = cname + "=";
+                            var ca = document.cookie.split(';');
+                            for (var i = 0; i < ca.length; i++) {
+                                var c = ca[i];
+                                while (c.charAt(0) == ' ') {
+                                    c = c.substring(1);
+                                }
+                                if (c.indexOf(name) == 0) {
+                                    return c.substring(name.length, c.length);
+                                }
+                            }
+                            return "";
+                        }
+                    });
+                </script>
+                <div class="nav-content">
+                    <ul id="nac" class="tabs tabs-transparent">
+                        <li class="tab" ><a data-tab="tab1" class="active add" href="#test1"><i class="material-icons left">home</i>Workers Section</a></li>
+                        <li class="tab" ><a data-tab="tab2" class="add" href="#test2" ><i class="material-icons left">wc</i>Sponsors Section</a></li>
+                        <li class="tab" ><a data-tab="tab3" class="add" href="#test3"  onclick="return getAllStudents();"><i class="material-icons left">account_box</i>Student Section</a></li>
+                        <li class="tab" ><a data-tab="tab4" class="add" href="#test4" ><i class="material-icons left">school</i>School Information</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
         <div id="test1" class="container">
-            <div class="row center alert blue white-text" style="margin-top: 5%;margin-bottom: 5%;">
+            <div class="row center alert blue white-text" style="margin-top: 10%;margin-bottom: 5%;">
                 <h5 class=""> You can add or views workers</h5>
             </div>
             <div class="row">
@@ -567,12 +600,12 @@
 <div id="test2" class="col s12">
     <div class="container">
 
-        <div class="" style="margin-top: 5%;">
+        <div class="" style="margin-top: 10%;">
             <div class="">
 
             </div>
 
-            <div class="" style="margin-top: 5%;">
+            <div class="" style="margin-top: 10%;">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a class="active" href="#new_sponsor">New Sponsor</a></li>
                     <li class="tab"><a  href="#sponsor_commitments">Sponsor Commitments</a></li>
@@ -583,7 +616,7 @@
             </div>
 
 
-            <div class=" white lighten-4" style="margin-top: 5%;">
+            <div class=" white lighten-4" style="margin-top: 4%;">
 
                 <!--               REGISTER NEW SPONSOR TAB-->
                 <div id="new_sponsor">
@@ -750,9 +783,25 @@
                                         <div class="card-content">
                                             <div class="row">
                                                 <div class="input-field col s12">
+                                                    <input name="sponsor_bank" id="sponsor_bank" type="text" class="validate">
+                                                    <label for="sponsor_bank">Name of bank</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <input name="sponsor_bank_slip" id="sponsor_bank_slip" type="text" class="validate">
+                                                    <label  for="sponsor_bank_slip">Bank slip number</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s12">
                                                     <input name="sponsor_amount_paid" id="sponsor_amount" type="number" class="validate">
                                                     <label data-error="Not a number" for="sponsor_amount">Amount being paid</label>
                                                 </div>
+
                                             </div>
 
                                         </div>
@@ -982,7 +1031,6 @@
                                     </thead>
                                 </table>
                             </div>
-
                         </div>   
                     </div>
                 </div>
@@ -1145,7 +1193,7 @@
 <div id="test4">
     <div class="container">
         <div class="row">
-            <div style="margin-top: 5%;">
+            <div style="margin-top: 10%;">
                 <div class="col s12">
                     <ul class="tabs">
                         <li class="tab col s3"><a class="active" href="#newSkull">New School</a></li>
@@ -1381,6 +1429,18 @@
                     <div class="row">
                         <div id="make_payments_bg">
 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="make_sponsor_bank" id="make_sponsor_bank" type="text" class="validate">
+                            <label for="make_sponsor_bank">Name of bank</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="make_ponsor_bank_slip" id="make_sponsor_bank_slip" type="text" class="validate">
+                            <label  for="make_sponsor_bank_slip">Bank slip number</label>
                         </div>
                     </div>
 

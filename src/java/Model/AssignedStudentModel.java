@@ -15,14 +15,35 @@ public class AssignedStudentModel {
     private String stud_id;
     private String l_name;
     private String s_name;
+    private String school;
+    private String level;
 
-    public AssignedStudentModel(String f_name, String stud_id, String l_name, String s_name) {
+    public AssignedStudentModel(String f_name, String stud_id, String l_name, String s_name,String school, String level) {
         this.f_name = f_name;
         this.stud_id = stud_id;
         this.l_name = l_name;
         this.s_name = s_name;
+        this.school = school;
+        this.level = level;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    
     public AssignedStudentModel() {
     }
 
