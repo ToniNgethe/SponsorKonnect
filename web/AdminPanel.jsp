@@ -30,7 +30,7 @@
         <script src="js/custom.js" type="text/javascript"></script>
         <script src="js/admin.js" type="text/javascript"></script>
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
-
+        <script src="js/Chart.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -58,6 +58,7 @@
                         <li class="tab" ><a data-tab="tab2" class="add" href="#test2" ><i class="material-icons left">wc</i>Sponsors Section</a></li>
                         <li class="tab" ><a data-tab="tab3" class="add" href="#test3"  onclick="return getAllStudents();"><i class="material-icons left">account_box</i>Student Section</a></li>
                         <li class="tab" ><a data-tab="tab4" class="add" href="#test4" ><i class="material-icons left">school</i>School Information</a></li>
+                        <li class="tab" ><a data-tab="tab5" class="add" href="#test5" ><i class="material-icons left">library_books</i>Reports</a></li>
                     </ul>
                 </div>
             </nav>
@@ -1429,6 +1430,71 @@
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+<div id="test5" class="container" style="margin-top: 5%;">
+    <div class="col s12">
+        <div class="row">
+<!--            SPONSORS-->
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-title">
+                        <div class="row">
+                            <div class="col s3">
+                                <i class="material-icons medium">wc</i>
+                            </div>
+                            <div class="col s8">
+                                <h5>Sponsors</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+
+                    </div>
+
+                </div>
+            </div>
+
+          
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-content">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-content">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-content">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>
