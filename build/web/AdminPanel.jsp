@@ -20,16 +20,18 @@
 
         <link href="css/demo_table.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified CSS -->
-        <script src="js/jquery.min.js" type="text/javascript"></script>
+
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
+
         <!-- Compiled and minified JavaScript -->
+        <script src="js/jquery.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/materialize.min.js" type="text/javascript"></script>
         <script src="js/sweetalert2.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
         <script src="js/admin.js" type="text/javascript"></script>
-        <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/Chart.js" type="text/javascript"></script>
     </head>
     <body>
@@ -1432,10 +1434,10 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
 </div>
-<div id="test5" class="container" style="margin-top: 5%;">
-    <div class="col s12">
+<div id="test5" class="" style="margin-top: 5%;">
+    <div class="">
         <div class="row">
-<!--            SPONSORS-->
+            <!--            SPONSORS-->
             <div class="col s6">
                 <div class="card">
                     <div class="card-title">
@@ -1450,12 +1452,74 @@
                     </div>
                     <div class="card-content">
 
+                        <ul class="collapsible popout" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_drama</i>REGISTERED SPONSORS</div>
+                                <div class="collapsible-body">
+                                    <!--                                    REGISTERED SPONSORS-->
+                                    <script type="text/javascript" charset="utf-8">
+
+                                        $(document).ready(function () {
+
+
+                                            $("#example33").DataTable({
+                                                "bProcessing": false,
+                                                "bServerSide": false,
+                                                "sAjaxSource": "PopulateServlet",
+                                                "bJQueryUI": true,
+                                                "aoColumns": [
+                                                    {"mData": "sponsor_id"},
+                                                    {"mData": "name"},
+                                                    {"mData": "number"},
+                                                    {"mData": "email"},
+                                                    {"mData": "means"},
+                                                    {"mData": "type"},
+                                                    {"mData": "company"}
+
+                                                ]
+                                            });
+                                        });
+                                    </script>
+
+                                    <div id="dynamic" class="">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                               id="example33">
+                                            <thead>
+                                                <tr>
+                                                    <th >Sponsor ID</th>
+                                                    <th >Name</th>
+                                                    <th >Number</th>
+                                                    <th >Email</th>
+                                                    <th >Communication means</th>
+                                                    <th >SponsorShip Type</th>
+                                                    <th>Company</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Applicants</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Commitments</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            
+                              <li>
+                                <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Payments</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                        </ul>
                     </div>
+
 
                 </div>
             </div>
 
-          
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
@@ -1464,6 +1528,7 @@
 
                 </div>
             </div>
+
         </div>
 
         <div class="row">
@@ -1498,4 +1563,5 @@
     </div>
 </div>
 </body>
+
 </html>
