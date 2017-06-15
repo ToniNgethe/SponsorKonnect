@@ -6,8 +6,13 @@
 package Controla;
 
 import Model.SponosorModel;
-import Model.SponsorsCountMOdel;
+import Model.SponsorCommitsModel;
+import Model.SponsorPaymentsModel;
+import Object.DataTableObject;
+import Object.SponsorCommitsObject;
+import Object.SponsorPaymentObject;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.Reports;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,24 +32,45 @@ public class ReportsServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        Reports r = new Reports();
-        
+        Reports dataDao = new Reports();
+
+        PrintWriter out = response.getWriter();
         if (action.equals("sponsors")) {
-            
-            List<SponsorsCountMOdel> listOfSponsors = r.getTotalSponsors();
 
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(listOfSponsors);
+            List<SponosorModel> list = dataDao.allSponors();
 
-            response.setContentType("application/json");
+            DataTableObject dataTableObject = new DataTableObject();
+            dataTableObject.setAaData(list);
 
-            response.getWriter().write(jsonString);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+
+        } else if (action.equals("commits")) {
+
+            List<SponsorCommitsModel> list = dataDao.getCommits();
+
+            SponsorCommitsObject dataTableObject = new SponsorCommitsObject();
+            dataTableObject.setAaData(list);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+
+        } else if (action.equals("pay")) {
+            List<SponsorPaymentsModel> list = dataDao.getPayments();
+
+            SponsorPaymentObject dataTableObject = new SponsorPaymentObject();
+            dataTableObject.setAaData(list);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
 
         }
-
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -229,8 +229,8 @@ public class Admin {
     public boolean addSponsor(SponosorModel sp) {
         boolean success = false;
         
-        String query = "INSERT INTO `Sponsor`(`sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `pass`) "
-                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `Sponsor`(`sponsor_id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `pass`, `date`) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = conn.prepareStatement(query);
             pst.setString(1, sp.getSponsor_id());
@@ -241,6 +241,7 @@ public class Admin {
             pst.setString(6, sp.getType());
             pst.setString(7, sp.getCompany());
             pst.setString(8, sp.getPass());
+            pst.setDate(9, sp.getDate());
             
             int a = pst.executeUpdate();
             if (a > 0) {
@@ -340,7 +341,7 @@ public class Admin {
     }
 
     //save payment
-    public boolean savePayment(String id, String amount, int type,String bank,String slip) {
+    public boolean savePayment(String id, String amount, int type, String bank, String slip) {
         boolean isSaved = false;
 
         //get todays date
@@ -389,7 +390,7 @@ public class Admin {
                 
                 if (rs2.next()) {
                     StudentModel sm = new StudentModel(rs.getInt(1), rs.getString(2), rs.getString(3));
-                   
+                    
                     list.add(sm);
                 }
                 
@@ -652,7 +653,8 @@ public class Admin {
                 sm.setMeans(rs.getString(6));
                 sm.setType(rs.getString(7));
                 sm.setCompany(rs.getString(8));
-         
+              
+               sm.setDate(rs.getDate("date"));
                 myList.add(sm);
                 
             }
@@ -740,7 +742,7 @@ public class Admin {
             
             int a = pst.executeUpdate();
             
-            if (a>0) {
+            if (a > 0) {
                 Updated = true;
             }
             
@@ -750,12 +752,12 @@ public class Admin {
         
         return Updated;
     }
-    
-      //get all sponsors
+
+    //get all sponsors
     public List<ApplicantSponsors> allApplicantSponors() {
         List<ApplicantSponsors> myList = new ArrayList<>();
 
-     //  SELECT `id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `date` FROM `sponsor_applicants` WHERE 1
+        //  SELECT `id`, `name`, `mobile`, `email`, `means`, `type`, `company`, `date` FROM `sponsor_applicants` WHERE 1
         String query = "SELECT * FROM sponsor_applicants";
         try {
             pst = conn.prepareStatement(query);
@@ -785,6 +787,4 @@ public class Admin {
         return myList;
     }
     
- 
 }
-

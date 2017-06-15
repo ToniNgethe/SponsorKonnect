@@ -65,9 +65,11 @@ public class SponsorServlet extends HttpServlet {
 
                         //check if sponsor id exists
                         if (!admin.checkSponsorId(number)) {
-
+                            //get todays date
+                            java.util.Date today = new java.util.Date();
+                            java.sql.Date t = new java.sql.Date(today.getTime());
                             //sponsor does not exist..so add him/her
-                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company, pas);
+                            SponosorModel sp = new SponosorModel(number, name, mobile, email, comm_means, type, company, pas, t);
                             if (admin.addSponsor(sp)) {
 
                                 //was a success
@@ -157,7 +159,7 @@ public class SponsorServlet extends HttpServlet {
             //check sponsor id
             if (admin.checkSponsorId(sponsor_pay_id)) {
 
-                if (admin.savePayment(sponsor_pay_id, payment_made, 1,bank_name, bank_slip)) {
+                if (admin.savePayment(sponsor_pay_id, payment_made, 1, bank_name, bank_slip)) {
                     //successfully saved
                     out.print("  <div class='alert alert-success' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;'>Payment made successfully</div>");
                 } else {

@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author toni
@@ -12,11 +14,12 @@ package Model;
 public class SponosorModel {
 
     private String sponsor_id, name, number, email, means, type, company, pass;
+    private Date date;
 
     public SponosorModel() {
     }
 
-    public SponosorModel(String sponsor_id, String name, String number, String email, String means, String type, String company, String pass) {
+    public SponosorModel(String sponsor_id, String name, String number, String email, String means, String type, String company, String pass, Date date) {
         this.sponsor_id = sponsor_id;
         this.name = name;
         this.number = number;
@@ -25,8 +28,18 @@ public class SponosorModel {
         this.type = type;
         this.company = company;
         this.pass = pass;
+        this.date = date;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    
     public String getPass() {
         return pass;
     }

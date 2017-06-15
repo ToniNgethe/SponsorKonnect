@@ -1435,18 +1435,18 @@
     </div>
 </div>
 <div id="test5" class="" style="margin-top: 5%;">
-    <div class="">
+    <div class="container">
         <div class="row">
             <!--            SPONSORS-->
-            <div class="col s6">
+            <div class="">
                 <div class="card">
-                    <div class="card-title">
+                    <div class="card-title blue white-text">
                         <div class="row">
                             <div class="col s3">
                                 <i class="material-icons medium">wc</i>
                             </div>
                             <div class="col s8">
-                                <h5>Sponsors</h5>
+                                <h5>Sponsors Reports</h5>
                             </div>
                         </div>
                     </div>
@@ -1454,7 +1454,7 @@
 
                         <ul class="collapsible popout" data-collapsible="accordion">
                             <li>
-                                <div class="collapsible-header"><i class="material-icons">filter_drama</i>REGISTERED SPONSORS</div>
+                                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Registered sponsors</div>
                                 <div class="collapsible-body">
                                     <!--                                    REGISTERED SPONSORS-->
                                     <script type="text/javascript" charset="utf-8">
@@ -1474,7 +1474,8 @@
                                                     {"mData": "email"},
                                                     {"mData": "means"},
                                                     {"mData": "type"},
-                                                    {"mData": "company"}
+                                                    {"mData": "company"},
+                                                    {"mData": "date"}
 
                                                 ]
                                             });
@@ -1493,6 +1494,7 @@
                                                     <th >Communication means</th>
                                                     <th >SponsorShip Type</th>
                                                     <th>Company</th>
+                                                    <th>Date Registered</th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -1502,29 +1504,134 @@
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Applicants</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                <div class="collapsible-body">
+
+                                    <!--                                    APPLICANTS SPONSORS-->
+                                    <script type="text/javascript" charset="utf-8">
+
+                                        $(document).ready(function () {
+                                            $("#report_sponsorApplicants").DataTable({
+                                                "bProcessing": false,
+                                                "bServerSide": false,
+                                                "sAjaxSource": "ReportsServlet?action=sponsors",
+                                                "bJQueryUI": true,
+                                                "aoColumns": [
+                                                    {"mData": "name"},
+                                                    {"mData": "number"},
+                                                    {"mData": "email"},
+                                                    {"mData": "means"},
+                                                    {"mData": "type"},
+                                                    {"mData": "company"},
+                                                    {"mData": "date"}
+
+                                                ]
+                                            });
+                                        });
+                                    </script>
+
+                                    <div id="" class="">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                               id="report_sponsorApplicants">
+                                            <thead>
+                                                <tr>
+
+                                                    <th >Name</th>
+                                                    <th >Number</th>
+                                                    <th >Email</th>
+                                                    <th >Communication means</th>
+                                                    <th >SponsorShip Type</th>
+                                                    <th>Company</th>
+                                                    <th>Application Date</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Commitments</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                <div class="collapsible-body">
+
+                                    <!--                                    SPONSORS COMMITMENTS-->
+                                    <script type="text/javascript" charset="utf-8">
+
+                                        $(document).ready(function () {
+                                            $("#report_sponsorCommitments").DataTable({
+                                                "bProcessing": false,
+                                                "bServerSide": false,
+                                                "sAjaxSource": "ReportsServlet?action=commits",
+                                                "bJQueryUI": true,
+                                                "aoColumns": [
+                                                    {"mData": "sponsor"},
+                                                    {"mData": "amount"},
+                                                    {"mData": "date"}
+                                                ]
+                                            });
+                                        });
+                                    </script>
+
+                                    <div id="" class="">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                               id="report_sponsorCommitments">
+                                            <thead>
+                                                <tr>
+                                                    <th >Sponsor ID</th>
+                                                    <th >Amount Committed</th>
+                                                    <th >Date of commitment</th>
+
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                </div>
                             </li>
-                            
-                              <li>
+
+                            <li>
                                 <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Payments</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                <div class="collapsible-body">
+                                    <!--                                    SPONSORS PAYMENTS-->
+                                    <script type="text/javascript" charset="utf-8">
+
+                                        $(document).ready(function () {
+                                            $("#report_sponsorPayments").DataTable({
+                                                "bProcessing": false,
+                                                "bServerSide": false,
+                                                "sAjaxSource": "ReportsServlet?action=pay",
+                                                "bJQueryUI": true,
+                                                "aoColumns": [
+                                                    {"mData": "sponsor"},
+                                                    {"mData": "type"},
+                                                    {"mData": "bank"},
+                                                    {"mData": "slip"},
+                                                    {"mData": "amount"},
+                                                    {"mData": "date"}
+                                                ]
+                                            });
+                                        });
+                                    </script>
+
+                                    <div id="" class="">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                               id="report_sponsorPayments">
+                                            <thead>
+                                                <tr>
+                                                    <th >Sponsor ID</th>
+                                                    <th >Payment Type</th>
+                                                    <th>Bank</th>
+                                                    <th >Bank Slip</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
 
-
-                </div>
-            </div>
-
-            <div class="col s6">
-                <div class="card">
-                    <div class="card-content">
-
-                    </div>
 
                 </div>
             </div>

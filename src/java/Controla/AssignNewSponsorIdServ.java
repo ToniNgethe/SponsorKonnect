@@ -32,15 +32,17 @@ public class AssignNewSponsorIdServ extends HttpServlet {
         String type = request.getParameter("type");
         String company = request.getParameter("company");
         String number = request.getParameter("number");
-        String pass =request.getParameter("pass");
+        String pass = request.getParameter("pass");
 
         Admin ad = new Admin();
 
-        
         if (!sponsor_id.isEmpty() && !name.isEmpty() && !email.isEmpty() && !means.isEmpty() && !type.isEmpty() && !company.isEmpty() && !pass.isEmpty()) {
 
             if (!ad.checkSponsorId(sponsor_id)) {
-                SponosorModel sp = new SponosorModel(sponsor_id, name, number, email, means, type, company,pass);
+                //get todays date
+                java.util.Date today = new java.util.Date();
+                java.sql.Date t = new java.sql.Date(today.getTime());
+                SponosorModel sp = new SponosorModel(sponsor_id, name, number, email, means, type, company, pass,t);
                 if (ad.addSponsor(sp)) {
                     out.print("  <div id='err' class='alert alert-success' role='alert' style='margin:4%;' >Sponsor successfully assigned.</div>");
                 } else {
