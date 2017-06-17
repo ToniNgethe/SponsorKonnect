@@ -8,9 +8,13 @@ package Controla;
 import Model.SponosorModel;
 import Model.SponsorCommitsModel;
 import Model.SponsorPaymentsModel;
+import Model.StudentPersonalModel;
+import Model.StudentSponsorModel;
 import Object.DataTableObject;
 import Object.SponsorCommitsObject;
 import Object.SponsorPaymentObject;
+import Object.StudentPersonalObjects;
+import Object.StudentSponsorObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.Reports;
@@ -67,6 +71,25 @@ public class ReportsServlet extends HttpServlet {
             String json = gson.toJson(dataTableObject);
             out.print(json);
 
+        } else if (action.equals("regStuds")) {
+            List<StudentPersonalModel> list = dataDao.getAllStudents();
+
+            StudentPersonalObjects dataTableObject = new StudentPersonalObjects();
+            dataTableObject.setAaData(list);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+
+        } else if (action.equals("studSponsor")) {
+            List<StudentSponsorModel> list = dataDao.getStudentAss();
+
+            StudentSponsorObject dataTableObject = new StudentSponsorObject();
+            dataTableObject.setAaData(list);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

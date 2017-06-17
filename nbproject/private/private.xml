@@ -20,12 +20,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/StudentPanel.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/GetStudentReports.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/SponsorPanel.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/NewSponsorApplication.java</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/GetStudentSocialReport.java</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/js/admin.js</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AdminPanel.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/dao/Reports.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Object/StudentSponsorObject.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Model/StudentSponsorModel.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/ReportsServlet.java</file>
         </group>
     </open-files>
 </project-private>

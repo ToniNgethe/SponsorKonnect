@@ -1434,7 +1434,7 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
 </div>
-<div id="test5" class="" style="margin-top: 5%;">
+<div id="test5" class="" style="margin-top: 3%;">
     <div class="container">
         <div class="row">
             <!--            SPONSORS-->
@@ -1622,7 +1622,7 @@
                                                     <th >Bank Slip</th>
                                                     <th>Amount</th>
                                                     <th>Date</th>
-                                                
+
                                                 </tr>
                                             </thead>
                                         </table>
@@ -1639,30 +1639,194 @@
         </div>
 
         <div class="row">
-            <div class="col s4">
-                <div class="card">
-                    <div class="card-content">
-
+            <div class="card">
+                <div class="card-title blue white-text">
+                    <div class="row">
+                        <div class="col s3">
+                            <i class="material-icons medium">account_box</i>
+                        </div>
+                        <div class="col s8">
+                            <h5>Student Reports</h5>
+                        </div>
                     </div>
-
                 </div>
-            </div>
+                <div class="card-content">
+                    <ul class="collapsible popout" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Registered Students</div>
+                            <div class="collapsible-body">
+                                <!--                                    REGISTERED STUDENTS-->
+                                <script type="text/javascript" charset="utf-8">
 
-            <div class="col s4">
-                <div class="card">
-                    <div class="card-content">
+                                    $(document).ready(function () {
 
-                    </div>
 
-                </div>
-            </div>
+                                        $("#report_registeredStudents").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=regStuds",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "stud_id"},
+                                                {"mData": "s_name"},
+                                                {"mData": "f_name"},
+                                                {"mData": "l_name"},
+                                                {"mData": "gender"},
+                                                {"mData": "number"},
+                                                {"mData": "location"},
+                                                {"mData": "dob"},
+                                                {"mData": "added"}
+                                            ]
+                                        });
+                                    });
+                                </script>
 
-            <div class="col s4">
-                <div class="card">
-                    <div class="card-content">
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_registeredStudents">
+                                        <thead>
+                                            <tr>
+                                                <th >Student ID</th>
+                                                <th >Sur Name</th>
+                                                <th >First Name</th>
+                                                <th >Lat Name</th>
+                                                <th >Gender</th>
+                                                <th >Number</th>
+                                                <th >Location</th>
+                                                <th>Date of birth</th>
+                                                <th>Date Registered</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
 
-                    </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">whatshot</i>Student Sponsors</div>
+                            <div class="collapsible-body">
+                                <!--                                    APPLICANTS SPONSORS-->
+                                <script type="text/javascript" charset="utf-8">
 
+                                    $(document).ready(function () {
+                                        $("#report_sponsorAssigned").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=studSponsor",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "stud_id"},
+                                                {"mData": "stud_name"},
+                                                {"mData": "sponsor_name"},
+                                                {"mData": "social_worker"},
+                                                {"mData": "acc_name"},
+                                                {"mData": "date"}
+                                            ]
+                                        });
+                                    });
+                                </script>
+
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_sponsorAssigned">
+                                        <thead>
+                                            <tr>
+                                                <th >Student Id</th>
+                                                <th >Student Name</th>
+                                                <th >Sponsor Name</th>
+                                                <th >Social Worker</th>
+                                                <th >Accountant </th>
+                                                <th>Date assigned</th>
+                                              
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">whatshot</i>Student Account Allocations</div>
+                            <div class="collapsible-body">
+
+                                <!--                                    SPONSORS COMMITMENTS-->
+                                <script type="text/javascript" charset="utf-8">
+
+//                                    $(document).ready(function () {
+//                                        $("#report_sponsorCommitments").DataTable({
+//                                            "bProcessing": false,
+//                                            "bServerSide": false,
+//                                            "sAjaxSource": "ReportsServlet?action=commits",
+//                                            "bJQueryUI": true,
+//                                            "aoColumns": [
+//                                                {"mData": "sponsor"},
+//                                                {"mData": "amount"},
+//                                                {"mData": "date"}
+//                                            ]
+//                                        });
+//                                    });
+                                </script>
+
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_sponsorCommitments">
+                                        <thead>
+                                            <tr>
+                                                <th >Sponsor ID</th>
+                                                <th >Amount Committed</th>
+                                                <th >Date of commitment</th>
+
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Payments</div>
+                            <div class="collapsible-body">
+                                <!--                                    SPONSORS PAYMENTS-->
+                                <script type="text/javascript" charset="utf-8">
+
+//                                    $(document).ready(function () {
+//                                        $("#report_sponsorPayments").DataTable({
+//                                            "bProcessing": false,
+//                                            "bServerSide": false,
+//                                            "sAjaxSource": "ReportsServlet?action=pay",
+//                                            "bJQueryUI": true,
+//                                            "aoColumns": [
+//                                                {"mData": "sponsor"},
+//                                                {"mData": "type"},
+//                                                {"mData": "bank"},
+//                                                {"mData": "slip"},
+//                                                {"mData": "amount"},
+//                                                {"mData": "date"}
+//                                            ]
+//                                        });
+//                                    });
+                                </script>
+
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_sponsorPayments">
+                                        <thead>
+                                            <tr>
+                                                <th >Sponsor ID</th>
+                                                <th >Payment Type</th>
+                                                <th>Bank</th>
+                                                <th >Bank Slip</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

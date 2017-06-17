@@ -22,9 +22,14 @@ public class StudentPersonalModel implements Serializable{
     private String number;
     private String location;
     private String status;
-    private Date dob;
+    private Date dob,added;
     private String age;
 
+    public StudentPersonalModel() {
+    }
+ 
+
+    
     public StudentPersonalModel(String id,String s_name, String f_name, String l_name, String gender, String number, String location, String status, Date dob, String age) {
         this.s_name = s_name;
         this.f_name = f_name;
@@ -38,10 +43,19 @@ public class StudentPersonalModel implements Serializable{
         this.stud_id = id;
     }
 
+    public Date getAdded() {
+        return added;
+    }
+
+    public void setAdded(Date added) {
+        this.added = added;
+    }
+
+    
     public String getStud_id() {
         return stud_id;
     }
-
+    
     public void setStud_id(String stud_id) {
         this.stud_id = stud_id;
     }

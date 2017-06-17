@@ -144,7 +144,6 @@ public class Student {
 
             if (rs.next()) {
                 exists = true;
-
             }
 
         } catch (SQLException ex) {
