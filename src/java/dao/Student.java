@@ -529,5 +529,40 @@ public class Student {
 
         return exists;
     }
+    
+    //check all data
+    public boolean checkAllSkuls(String id){
+        boolean exists = false;
+        
+        String q1 = "SELECT * FROM selected_school WHERE student = ?";
+        String q2 = "SELECT * FROM student_school WHERE stud_id = ?";
+        
+        try {
+            pst = conn.prepareStatement(q1);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                //found
+                exists = true;
+            }else{
+                
+                PreparedStatement p = conn.prepareStatement(q2);
+                p.setString(1, id);
+                ResultSet r = p.executeQuery();
+                
+                if (r.next()) {
+                    //found 
+                    exists = true;
+                }
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return exists;
+    }
 
 }

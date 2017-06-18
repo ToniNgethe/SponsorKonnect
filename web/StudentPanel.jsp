@@ -86,6 +86,7 @@
                                 <li class="tab"><a href="#parental">Parental Information</a></li>
                                 <li class="tab"><a href="#sibling">Sibling Information</a></li>
                                 <li class="tab"><a href="#school">School Information</a></li>
+                                <li id="proceedTab" class="tab"><a href="#proceed">Finish</a>
                             </ul>
                         </div>
 
@@ -417,6 +418,46 @@
                                     </div>
 
                                 </div>  
+                            </div>
+                        </div>
+
+                        <div id="proceed">
+                            <div class="col s6 offset-l3" style="margin-top: 4%;">
+                                <div class=" row alert alert-info">
+                                    <h6>Click proceed if you have filled all details</h6>
+                                </div>
+                                <div class="row" style="margin-top: 5%;">
+                                    <button style="width: 50%;" id='btnFinish' type='button' class='btn btn-large waves-effect waves-light validate'><i class="material-icons right">fast_forward</i>Save details</button>
+                                </div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#btnFinish').click(function (event) {
+                                            event.preventDefault();
+
+                                            $.ajax({
+                                                type: 'POST',
+                                                data: {id: '<%= id%>'},
+                                                url: "CheckAllData?add",
+                                                success: function (result) {
+
+                                                    if (result === 'true') {
+                                                        window.location.href="StudentPaAfterReg.jsp";
+                                                    } else {
+                                                        swal(
+                                                                'Server Feedback',
+                                                                result,
+                                                                'info'
+                                                                );
+                                                    }
+                                                },
+                                                error: function (result) {
+                                                    alert("error" + result);
+                                                }
+
+                                            });
+                                        });
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

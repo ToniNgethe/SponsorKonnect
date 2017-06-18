@@ -5,12 +5,16 @@
  */
 package dao;
 
+import Model.FeesModel;
+import Model.SchoolsModel;
 import Model.SponosorModel;
 import Model.SponsorCommitsModel;
 import Model.SponsorPaymentsModel;
 import Model.SponsorsCountMOdel;
+import Model.StudentAllocationModel;
 import Model.StudentPersonalModel;
 import Model.StudentSponsorModel;
+import Model.SuggestedSchoolsModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * conn
  *
  * @author toni
  */
@@ -62,6 +67,8 @@ public class Reports {
 
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtils.DBUtil.closeConnection(conn);
         }
 
         return myList;
@@ -157,6 +164,8 @@ public class Reports {
 
         } catch (SQLException ex) {
             Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtils.DBUtil.closeConnection(conn);
         }
 
         return list;
@@ -178,7 +187,7 @@ public class Reports {
 
             while (rs.next()) {
                 StudentSponsorModel sponsorModel = new StudentSponsorModel();
-                
+
                 sponsorModel.setStud_id(rs.getString("student"));
                 sponsorModel.setDate(rs.getDate("date"));
 
@@ -214,7 +223,7 @@ public class Reports {
                     sponsorModel.setAcc_name(acc_r.getString("name"));
 
                 }
-                
+
                 list.add(sponsorModel);
 
             }
@@ -227,4 +236,131 @@ public class Reports {
 
         return list;
     }
+
+    public List<StudentAllocationModel> getAllocations() {
+        List<StudentAllocationModel> list = new ArrayList<>();
+
+        String query = "SELECT * FROM student_allocation";
+        try {
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                StudentAllocationModel sl = new StudentAllocationModel();
+                sl.setStudId(rs.getString(2));
+                sl.setSchool(rs.getDouble(3));
+                sl.setUpkeep(rs.getDouble(4));
+                sl.setOthers(rs.getDouble(5));
+                sl.setDate(rs.getDate(6));
+
+                list.add(sl);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtils.DBUtil.closeConnection(conn);
+        }
+
+        return list;
+    }
+
+    public List<SchoolsModel> getRegSchools() {
+        List<SchoolsModel> list = new ArrayList<>();
+
+        String query = "SELECT * FROM school";
+        try {
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                SchoolsModel schoolsModel = new SchoolsModel();
+                schoolsModel.setId(rs.getInt(1));
+                schoolsModel.setName(rs.getString(2));
+                schoolsModel.setMode(rs.getString(3));
+                schoolsModel.setMeans(rs.getString(4));
+                schoolsModel.setDate(rs.getDate(5));
+
+                list.add(schoolsModel);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtils.DBUtil.closeConnection(conn);
+        }
+
+        return list;
+    }
+
+    public List<FeesModel> getSchoolFees() {
+        List<FeesModel> list = new ArrayList<>();
+
+        String query = "SELECT * FROM school_fees";
+        try {
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                FeesModel fees = new FeesModel();
+                fees.setName(rs.getString(2));
+                fees.setFirst(rs.getDouble(3));
+                fees.setSecond(rs.getDouble(4));
+                fees.setThird(rs.getDouble(5));
+                fees.setDate(rs.getDate(6));
+
+                list.add(fees);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtils.DBUtil.closeConnection(conn);
+        }
+
+        return list;
+    }
+
+    public List<SuggestedSchoolsModel> getSuggestedSchools() {
+        List<SuggestedSchoolsModel> list = new ArrayList<>();
+
+        String query = "SELECT * FROM student_school";
+        String stud_query = "SELECT s_name, f_name, l_name FROM student_personal WHERE stud_id = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+
+                SuggestedSchoolsModel schoolsModel = new SuggestedSchoolsModel();
+
+                PreparedStatement p = conn.prepareStatement(stud_query);
+                p.setString(1, rs.getString(2));
+                ResultSet r = p.executeQuery();
+
+                if (r.next()) {
+                    schoolsModel.setStudName(r.getString("s_name") +" "+ r.getString("f_name") +" " +r.getString("l_name"));
+                }else{
+                    schoolsModel.setStudName("Not Found");
+                }
+                schoolsModel.setName(rs.getString("name"));
+                schoolsModel.setEducation_level(rs.getString("education_level"));
+                schoolsModel.setMode(rs.getString("mode"));
+                schoolsModel.setType(rs.getString("type"));
+                schoolsModel.setCl(rs.getString("class"));
+                schoolsModel.setDate(rs.getDate("date"));
+                
+                list.add(schoolsModel);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DBUtils.DBUtil.closeConnection(conn);
+        }
+
+        return list;
+    }
+
 }

@@ -164,6 +164,10 @@
         <servlet-name>ReportsServlet</servlet-name>
         <servlet-class>Controla.ReportsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckAllData</servlet-name>
+        <servlet-class>Controla.CheckAllData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -327,6 +331,10 @@
     <servlet-mapping>
         <servlet-name>ReportsServlet</servlet-name>
         <url-pattern>/ReportsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckAllData</servlet-name>
+        <url-pattern>/CheckAllData</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

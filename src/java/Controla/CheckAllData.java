@@ -5,60 +5,47 @@
  */
 package Controla;
 
-import Model.SocialLoginModel;
-import dao.SocialWorker;
+import dao.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author toni
  */
-public class SocialWorkerLoginServ extends HttpServlet {
+public class CheckAllData extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
 
-        String email = request.getParameter("social_email");
-        String pass = request.getParameter("social_pass");
-        String msg = "";
-
-        SocialWorker socialWorker = new SocialWorker();
-
-        if (!email.isEmpty() && !pass.isEmpty()) {
-
-            int a = socialWorker.checkSocialLogin(email, pass);
-            if (a != 0) {
-
-                SocialLoginModel so = new SocialLoginModel(a, email);
-
-                HttpSession hs = request.getSession();
-                hs.setAttribute("SOCIAL_WORKER", so);
-                hs.setMaxInactiveInterval(-1);
-                response.sendRedirect("SocialWorkerPanel.jsp");
-
-            } else {
-                //redirect to login
-                msg = "<div class='alert alert-danger alert-dismissible' role='alert' style='margin-top: 10px;'>"
-                        + " Error! wrong credentials"
-                        + "</div>";
-                request.setAttribute("msg", msg);
-                request.getRequestDispatcher("SocialWorkerLogin.jsp").forward(request, response);
+        String id = request.getParameter("id");
+        
+        Student st = new Student();
+        //check personal details
+        if(st.isParentDetailsExist(id)){
+            
+            //check parents details
+            if (st.checkParents(id) || st.checkGurdian(id)) {
+                
+                //check sibling information
+                if (st.checkAllSkuls(id)) {
+                    out.print("true");
+                }else {
+                    out.print("<div id='err' class='alert alert-danger' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >You haven't added your School Details</div>"); 
+                }
+                
+            }else{
+               out.print("<div id='err' class='alert alert-danger' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >You haven't added your Parent/Gurdian details</div>"); 
             }
-
-        } else {
-            //redirect to login
-            msg = "<div class='alert alert-danger alert-dismissible' role='alert' style='margin-top: 10px;'>"
-                    + " Field(s) cannot be empty"
-                    + "</div>";
-            request.setAttribute("msg", msg);
-            request.getRequestDispatcher("SocialWorkerLogin.jsp").forward(request, response);
+            
+        }else{
+          out.print("<div id='err' class='alert alert-danger' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >You haven't added your personal details</div>");
         }
 
     }

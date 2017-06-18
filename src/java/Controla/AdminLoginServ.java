@@ -44,7 +44,7 @@ public class AdminLoginServ extends HttpServlet {
             //redirect to panel
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("ADMIN", adminM);
-            
+            httpSession.setMaxInactiveInterval(-1);
             response.sendRedirect("AdminPanel.jsp");
             
             System.out.println(adminM.getEmail());

@@ -80,6 +80,7 @@ public class StudentSchoolServlet extends HttpServlet {
                             if (std.addSelectedSchool(school, stud_id, clss, reg)) {
                                 
                                 out.print(" <div id='err' class='alert alert-success' role='alert' >School details successfully saved</div>");
+                               // out.print("<div class='alert alert-info'><a href=''>FINISH</a></div>");
                             } else {
                                 out.print(" <div id='err' class='alert alert-danger' role='alert'  >Error occured while saving your school details</div>");
                             }

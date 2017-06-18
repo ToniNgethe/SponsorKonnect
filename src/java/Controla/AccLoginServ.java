@@ -38,7 +38,7 @@ public class AccLoginServ extends HttpServlet {
             AccLoginModel accModel = new AccLoginModel(email, a);
             HttpSession hs = request.getSession();
             hs.setAttribute("ACCOUNT_DETAILS", accModel);
-            
+            hs.setMaxInactiveInterval(-1);
             response.sendRedirect("AccountantPanel.jsp");
 
         } else {

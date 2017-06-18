@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author toni
@@ -17,6 +19,7 @@ public class FeesModel {
     private double third;
     private double total;
     private double paid;
+    private Date date;
     
     public FeesModel(int id, String name, double first, double second, double third, double total, double paid) {
         this.id = id;
@@ -28,6 +31,15 @@ public class FeesModel {
         this.paid = paid;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    
     public FeesModel() {
     }
 

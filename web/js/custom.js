@@ -171,8 +171,6 @@ function getAdmin() {
 //submit personal details
 $(document).ready(function () {
 
-
-
     $('#continur_msg').show().delay(6000).fadeOut('slow');
     $('#login_bg').show().delay(2000).fadeOut('slow');
 
@@ -605,6 +603,7 @@ $(document).ready(function () {
                             result,
                             'info'
                             );
+                  
                 },
                 error: function (result) {
                     swal(

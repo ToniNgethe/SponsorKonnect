@@ -1026,7 +1026,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Email</th>
-
                                 </tr>
                             </thead>
 
@@ -1702,7 +1701,7 @@
 
                             </div>
                         </li>
-                        
+
                         <li>
                             <div class="collapsible-header"><i class="material-icons">whatshot</i>Student Sponsors</div>
                             <div class="collapsible-body">
@@ -1738,7 +1737,7 @@
                                                 <th >Social Worker</th>
                                                 <th >Accountant </th>
                                                 <th>Date assigned</th>
-                                              
+
                                             </tr>
                                         </thead>
                                     </table>
@@ -1752,29 +1751,93 @@
                                 <!--                                    SPONSORS COMMITMENTS-->
                                 <script type="text/javascript" charset="utf-8">
 
-//                                    $(document).ready(function () {
-//                                        $("#report_sponsorCommitments").DataTable({
-//                                            "bProcessing": false,
-//                                            "bServerSide": false,
-//                                            "sAjaxSource": "ReportsServlet?action=commits",
-//                                            "bJQueryUI": true,
-//                                            "aoColumns": [
-//                                                {"mData": "sponsor"},
-//                                                {"mData": "amount"},
-//                                                {"mData": "date"}
-//                                            ]
-//                                        });
-//                                    });
+                                    $(document).ready(function () {
+                                        $("#report_studentAllocations").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=allocation",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "studId"},
+                                                {"mData": "school"},
+                                                {"mData": "upkeep"},
+                                                {"mData": "others"},
+                                                {"mData": "date"}
+                                            ]
+                                        });
+                                    });
                                 </script>
 
                                 <div id="" class="">
                                     <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
-                                           id="report_sponsorCommitments">
+                                           id="report_studentAllocations">
                                         <thead>
                                             <tr>
-                                                <th >Sponsor ID</th>
-                                                <th >Amount Committed</th>
-                                                <th >Date of commitment</th>
+                                                <th >Student ID</th>
+                                                <th >Amount to School</th>
+                                                <th >Amount to Upkeep</th>
+                                                <th>Amount to Others</th>
+                                                <th>Date allocated</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-title blue white-text">
+                    <div class="row">
+                        <div class="col s3">
+                            <i class="material-icons medium">school</i>
+                        </div>
+                        <div class="col s8">
+                            <h5>School Reports</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <ul class="collapsible popout" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Registered Schools</div>
+                            <div class="collapsible-body">
+                                <!--                                    REGISTERED SCHOOLS-->
+                                <script type="text/javascript" charset="utf-8">
+
+                                    $(document).ready(function () {
+
+
+                                        $("#report_registeredSchool").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=regSchool",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "id"},
+                                                {"mData": "name"},
+                                                {"mData": "mode"},
+                                                {"mData": "means"},
+                                                {"mData": "date"}
+                                            ]
+                                        });
+                                    });
+                                </script>
+
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_registeredSchool">
+                                        <thead>
+                                            <tr>
+                                                <th >School ID</th>
+                                                <th >School Name</th>
+                                                <th >School Mode</th>
+                                                <th >School Means</th>
+                                                <th >Date registered</th>
 
                                             </tr>
                                         </thead>
@@ -1785,52 +1848,96 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header"><i class="material-icons">whatshot</i>Sponsor Payments</div>
+                            <div class="collapsible-header"><i class="material-icons">whatshot</i>School Fees Stracture</div>
                             <div class="collapsible-body">
-                                <!--                                    SPONSORS PAYMENTS-->
+                                <!--                                    SCHOOL FEES-->
                                 <script type="text/javascript" charset="utf-8">
 
-//                                    $(document).ready(function () {
-//                                        $("#report_sponsorPayments").DataTable({
-//                                            "bProcessing": false,
-//                                            "bServerSide": false,
-//                                            "sAjaxSource": "ReportsServlet?action=pay",
-//                                            "bJQueryUI": true,
-//                                            "aoColumns": [
-//                                                {"mData": "sponsor"},
-//                                                {"mData": "type"},
-//                                                {"mData": "bank"},
-//                                                {"mData": "slip"},
-//                                                {"mData": "amount"},
-//                                                {"mData": "date"}
-//                                            ]
-//                                        });
-//                                    });
+                                    $(document).ready(function () {
+                                        $("#report_schoolFees").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=fees",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "name"},
+                                                {"mData": "first"},
+                                                {"mData": "second"},
+                                                {"mData": "third"},
+                                           
+                                                {"mData": "date"}
+                                            ]
+                                        });
+                                    });
                                 </script>
 
                                 <div id="" class="">
                                     <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
-                                           id="report_sponsorPayments">
+                                           id="report_schoolFees">
                                         <thead>
                                             <tr>
-                                                <th >Sponsor ID</th>
-                                                <th >Payment Type</th>
-                                                <th>Bank</th>
-                                                <th >Bank Slip</th>
-                                                <th>Amount</th>
-                                                <th>Date</th>
-
+                                                <th >School Name</th>
+                                                <th >First Term</th>
+                                                <th >Second Term</th>
+                                                <th >Third Term</th>
+                                                <th >Date registered</th>
+                                              
                                             </tr>
                                         </thead>
                                     </table>
                                 </div>
                             </div>
                         </li>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">whatshot</i>Suggested Schools</div>
+                            <div class="collapsible-body">
+
+                                <!--                                    SUGGESTED SCHOOLS-->
+                                <script type="text/javascript" charset="utf-8">
+
+                                    $(document).ready(function () {
+                                        $("#report_suggestedSchools").DataTable({
+                                            "bProcessing": false,
+                                            "bServerSide": false,
+                                            "sAjaxSource": "ReportsServlet?action=suggested",
+                                            "bJQueryUI": true,
+                                            "aoColumns": [
+                                                {"mData": "studName"},
+                                                {"mData": "name"},
+                                                {"mData": "education_level"},
+                                                {"mData": "mode"},
+                                                {"mData": "type"},
+                                                {"mData": "cl"},
+                                   
+                                                {"mData": "date"}
+                                            ]
+                                        });
+                                    });
+                                </script>
+
+                                <div id="" class="">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table" style="width: 100%;"
+                                           id="report_suggestedSchools">
+                                        <thead>
+                                            <tr>
+                                                <th >Student Name</th>
+                                                <th >School Name</th>
+                                                <th >Education Level</th>
+                                                <th>School Mode</th>
+                                                <th>School Type</th>
+                                                <th>Student class</th>
+                                                <th>Date suggested</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </body>

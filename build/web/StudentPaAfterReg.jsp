@@ -38,7 +38,7 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">SponsorKonnect</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= studentModel.getEmail()%> </a></li>
+                    <li><a class="dropdown-button" href="./StudentLogout">Log Out</a></li>
                 </ul>
             </div>
         </nav>

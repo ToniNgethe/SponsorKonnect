@@ -5,16 +5,24 @@
  */
 package Controla;
 
+import Model.FeesModel;
+import Model.SchoolsModel;
 import Model.SponosorModel;
 import Model.SponsorCommitsModel;
 import Model.SponsorPaymentsModel;
+import Model.StudentAllocationModel;
 import Model.StudentPersonalModel;
 import Model.StudentSponsorModel;
+import Model.SuggestedSchoolsModel;
 import Object.DataTableObject;
+import Object.SchoolFeesObject;
+import Object.SchoolRegisteredObject;
 import Object.SponsorCommitsObject;
 import Object.SponsorPaymentObject;
+import Object.StudentAllocationObject;
 import Object.StudentPersonalObjects;
 import Object.StudentSponsorObject;
+import Object.SuggestedSchoolObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.Reports;
@@ -87,6 +95,37 @@ public class ReportsServlet extends HttpServlet {
             StudentSponsorObject dataTableObject = new StudentSponsorObject();
             dataTableObject.setAaData(list);
 
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+        } else if (action.equals("allocation")) {
+
+            List<StudentAllocationModel> list = dataDao.getAllocations();
+            StudentAllocationObject dataTableObject = new StudentAllocationObject();
+            dataTableObject.setAaData(list);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+        } else if (action.equals("regSchool")) {
+
+            List<SchoolsModel> list = dataDao.getRegSchools();
+            SchoolRegisteredObject dataTableObject = new SchoolRegisteredObject();
+            dataTableObject.setAaData(list);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+
+        } else if (action.equals("fees")) {
+            List<FeesModel> list = dataDao.getSchoolFees();
+            SchoolFeesObject dataTableObject = new SchoolFeesObject();
+            dataTableObject.setAaData(list);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(dataTableObject);
+            out.print(json);
+        } else if (action.equals("suggested")) {
+            List<SuggestedSchoolsModel> list = dataDao.getSuggestedSchools();
+            SuggestedSchoolObject dataTableObject = new SuggestedSchoolObject();
+            dataTableObject.setAaData(list);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(dataTableObject);
             out.print(json);

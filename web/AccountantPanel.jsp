@@ -52,11 +52,11 @@
                 <a href="#" class="brand-logo">SpnsorKonnect</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    
+
                     <li><a href="./AccountantLogout">Log out</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                   
+
                     <li><a href="/AccountantLogout">Log out</a></li>
                 </ul>
             </div>
@@ -101,7 +101,6 @@
                                             {"mData": "l_name"},
                                             {"mData": "number"},
                                             {"mData": "location"},
-                                            {"mData": "age"},
                                             {"mData": "gender"},
                                             {"mData": "button"}
                                         ]
@@ -376,7 +375,7 @@
                                             <th >Last Name</th>
                                             <th >Number</th>
                                             <th>Location</th>
-                                            <th >Age</th>
+
                                             <th>Gender</th>
                                             <th> Add Report</th>
                                         </tr>

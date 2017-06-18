@@ -93,7 +93,6 @@
                                             {"mData": "l_name"},
                                             {"mData": "number"},
                                             {"mData": "location"},
-                                            {"mData": "age"},
                                             {"mData": "gender"},
                                             {"mData": "button"}
                                         ]
@@ -122,7 +121,6 @@
                                             <th >Last Name</th>
                                             <th >Number</th>
                                             <th>Location</th>
-                                            <th >Age</th>
                                             <th>Gender</th>
                                             <th width> Add Report</th>
                                         </tr>
@@ -164,7 +162,7 @@
 <!--        <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>-->
 
 <!-- Modal Structure For filing reports-->
-<div id="modal1" class="modal modal-fixed-footer" data-backdrop="static" data-keyboard="false" style="max-width: 1500px;width:1400px; max-height: 1700px; height: 900px;">
+<div id="modal1" class="modal modal-fixed-footer" data-backdrop="static" data-keyboard="false" style="max-width: 1500px;width:1400px; max-height: 1700px; height: 980px;">
     <form id="selcted_student_form">
         <div class="modal-content">
             <div class="row alert alert-info">

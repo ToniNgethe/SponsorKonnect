@@ -57,7 +57,7 @@ public class StudentLogin extends HttpServlet {
                 StudentModel studentModel = new StudentModel(a, email, msg);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("STUDENT_MODEL", studentModel);
-
+                httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPanel.jsp?id=" + a);
 
             } else if (!std.checkParents(String.valueOf(a))) {
@@ -67,8 +67,9 @@ public class StudentLogin extends HttpServlet {
                 StudentModel studentModel = new StudentModel(a, email, msg);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("STUDENT_MODEL", studentModel);
-
+                httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPanel.jsp?id=" + a);
+
             } else if (std.totalSiblingsAdded(String.valueOf(a)) == 0) {
 
                 msg = "<div id='err' class='alert alert-info' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >Continue with sibling registration</div>";
@@ -76,22 +77,23 @@ public class StudentLogin extends HttpServlet {
                 StudentModel studentModel = new StudentModel(a, email, msg);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("STUDENT_MODEL", studentModel);
-
+                httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPanel.jsp?id=" + a);
 
-            } else if (!std.checkSchool(String.valueOf(a))) {
+            } else if (!std.checkAllSkuls(String.valueOf(a))) {
 
                 msg = "<div id='err' class='alert alert-info' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >Continue with School registration</div>";
                 StudentModel studentModel = new StudentModel(a, email, msg);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("STUDENT_MODEL", studentModel);
-
+                httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPanel.jsp?id=" + a);
 
             } else {
                 StudentModel studentModel = new StudentModel(a, email, msg);
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("STUDENT_MODEL", studentModel);
+                httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPaAfterReg.jsp?id=" + a);
             }
 
