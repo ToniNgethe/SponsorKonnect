@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>src/java/Controla/GetSelectedSchool.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>49</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>web/SponsorApply.jsp</url>
             <bookmark id="2">
                 <name/>
@@ -17,14 +9,19 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>src/java/Controla/GetSelectedSchool.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>49</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AdminPanel.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/dao/Reports.java</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Object/StudentSponsorObject.java</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Model/StudentSponsorModel.java</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/Controla/ReportsServlet.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AccountantPanel.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -1864,7 +1864,7 @@
                                                 {"mData": "first"},
                                                 {"mData": "second"},
                                                 {"mData": "third"},
-                                           
+
                                                 {"mData": "date"}
                                             ]
                                         });
@@ -1881,7 +1881,7 @@
                                                 <th >Second Term</th>
                                                 <th >Third Term</th>
                                                 <th >Date registered</th>
-                                              
+
                                             </tr>
                                         </thead>
                                     </table>
@@ -1908,7 +1908,7 @@
                                                 {"mData": "mode"},
                                                 {"mData": "type"},
                                                 {"mData": "cl"},
-                                   
+
                                                 {"mData": "date"}
                                             ]
                                         });
