@@ -46,8 +46,8 @@ public class StudentLogin extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } else {
+            
             //msg to display
-
             //after creating session, check if stud reg is complete
             Student std = new Student();
             //check personal details first
@@ -60,7 +60,7 @@ public class StudentLogin extends HttpServlet {
                 httpSession.setMaxInactiveInterval(-1);
                 response.sendRedirect("StudentPanel.jsp?id=" + a);
 
-            } else if (!std.checkParents(String.valueOf(a))) {
+            } else if (!std.checkAllParents(String.valueOf(a))) {
 
                 msg = "<div id='err' class='alert alert-info' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;' >Continue with Parent registration</div>";
 

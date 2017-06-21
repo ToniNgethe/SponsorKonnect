@@ -43,19 +43,36 @@ $(document).ready(function () {
 //save social edits
     $('#btn_submit_report').click(function (event) {
         event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            data: $("#selcted_student_form").serialize(),
-            url: "SocialWorkerServlet?action=new",
-            success: function (result) {
+        swal({
 
-                //$('#modal1').modal('close');
-                Materialize.toast(result, 4000);
-            },
-            error: function (result) {
-                alert("error" + result);
-            }
+            text: "Confirm before submitting",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+        }).then(function () {
+            //all is good perfom ajax
+            $.ajax({
+                type: 'POST',
+                data: $("#selcted_student_form").serialize(),
+                url: "SocialWorkerServlet?action=new",
+                success: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                },
+                error: function (result) {
+                    swal(
+                            'Server Feedback',
+                            result,
+                            'info'
+                            );
+                }
 
+            });
         });
     }
     );

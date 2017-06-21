@@ -21,12 +21,12 @@
 
         <link href="css/demo_table.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified CSS -->
-        <script src="js/jquery-1.12.4.js" type="text/javascript"></script>
+        <link href="css/sweetalert2.css" rel="stylesheet" type="text/css"/>
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
         <!-- Compiled and minified JavaScript -->
-
+        <script src="js/jquery-1.12.4.js" type="text/javascript"></script>
         <script src="js/materialize.min.js" type="text/javascript"></script>
-
+        <script src="js/sweetalert2.js" type="text/javascript"></script>
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
 
         <script src="js/social.js" type="text/javascript"></script>
@@ -50,11 +50,11 @@
                 <a href="#" class="brand-logo">SpnsorKonnect</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                   
+
                     <li><a href="./SocialLogout">Log out</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                   
+
                     <li><a href="./SocialLogout">Log out</a></li>
                 </ul>
             </div>
@@ -179,12 +179,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s8">
+                <div class="input-field col s6">
                     <input name="social_worker" id="social_worker" value="<%=email%>" type="hidden">
                     <input name="selected_stud_id" id="selected_stud_id" type="hidden">
                     <i class="material-icons prefix">today</i>
                     <input name="dateOfVisit" id="dateOfVisit" type="date" class="datepicker">
                     <label class="active" for="dateOfVisit">Date of visit</label>
+                </div>
+                <div class="input-field col s6">
+                    <select name="socialTerm" class="browser-default">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">First Term</option>
+                        <option value="2">Second Term</option>
+                        <option value="3">Third Term</option>
+                    </select>
+
                 </div>
             </div>
 

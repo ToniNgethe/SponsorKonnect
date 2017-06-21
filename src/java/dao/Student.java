@@ -6,6 +6,8 @@
 package dao;
 
 import DBUtils.DBUtil;
+import Model.SocialWorkerMOdel;
+import Model.SponosorModel;
 import Model.StudentGurdianModel;
 import Model.StudentParentsModel;
 import Model.StudentPersonalModel;
@@ -78,8 +80,6 @@ public class Student {
             pst.setDate(3, t);
             pst.setBlob(4, ip);
 
-            
-            
             int a = pst.executeUpdate();
 
             if (a > 0) {
@@ -392,9 +392,9 @@ public class Student {
     public boolean assSchool(StudentSchoolModel ssm) {
 
         boolean sucess = false;
-        
-          java.util.Date today = new java.util.Date();
-            java.sql.Date t = new java.sql.Date(today.getTime());
+
+        java.util.Date today = new java.util.Date();
+        java.sql.Date t = new java.sql.Date(today.getTime());
 
         try {
 
@@ -417,6 +417,8 @@ public class Student {
 
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.closeConnection(conn);
         }
 
         return sucess;
@@ -442,11 +444,12 @@ public class Student {
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            closeConnection();
+            DBUtil.closeConnection(conn);
         }
 
         return exists;
     }
+
     //check skull
     public boolean checkSelectedSkull(String id) {
         boolean exists = false;
@@ -467,12 +470,11 @@ public class Student {
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            closeConnection();
+            DBUtil.closeConnection(conn);
         }
 
         return exists;
     }
-    
 
     //record student selected school
     public boolean addSelectedSchool(String name, String student, String clss, String reg) {
@@ -489,27 +491,28 @@ public class Student {
             pst.setString(3, clss);
             pst.setString(4, reg);
             pst.setDate(5, t);
-            
+
             int a = pst.executeUpdate();
-            if (a>0) {
+            if (a > 0) {
                 added = true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.closeConnection(conn);
         }
 
         return added;
     }
-    
-    
+
     //check if student school is already reg
-      //check skull
+    //check skull
     public boolean checkStudentSchool(String id) {
         boolean exists = false;
 
         try {
-            String query = "SELECT stud_id FROM selected_school WHERE stud_id = ?";
+            String query = "SELECT stud_id FROM selected_school WHERE student = ?";
 
             pst = conn.prepareStatement(query);
             pst.setString(1, id);
@@ -529,40 +532,236 @@ public class Student {
 
         return exists;
     }
-    
+
     //check all data
-    public boolean checkAllSkuls(String id){
+    public boolean checkAllSkuls(String id) {
         boolean exists = false;
-        
+
         String q1 = "SELECT * FROM selected_school WHERE student = ?";
         String q2 = "SELECT * FROM student_school WHERE stud_id = ?";
-        
+
         try {
             pst = conn.prepareStatement(q1);
             pst.setString(1, id);
             rs = pst.executeQuery();
-            
+
             if (rs.next()) {
                 //found
                 exists = true;
-            }else{
-                
+            } else {
+
                 PreparedStatement p = conn.prepareStatement(q2);
                 p.setString(1, id);
                 ResultSet r = p.executeQuery();
-                
+
                 if (r.next()) {
                     //found 
                     exists = true;
                 }
-                
+
             }
-            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.closeConnection(conn);
+        }
+
+        return exists;
+    }
+
+    public boolean checkAllParents(String id) {
+        boolean exits = false;
+        String queryParents = "SELECT * FROM student_parents WHERE stud_id = ?";
+        String queryGurdian = "SELECT * FROM student_gurdian WHERE stud_id = ?";
+        try {
+            pst = conn.prepareStatement(queryParents);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                exits = true;
+            } else {
+
+                PreparedStatement p = conn.prepareStatement(queryGurdian);
+                p.setString(1, id);
+                ResultSet r = p.executeQuery();
+
+                if (r.next()) {
+                    exits = true;
+                }
+
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return exits;
+    }
+
+    public StudentPersonalModel retrievePersonalDetaisl(String id) {
+        StudentPersonalModel studentPersonalModel = new StudentPersonalModel();
+
+        String query = "SELECT * FROM student_personal WHERE stud_id = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                // SELECT `id`, `stud_id`, `s_name`, `f_name`, `l_name`, `gender`, `number`, `location`, `status`, `age`, `dob`, `added` FROM `student_personal` WHERE 1
+                studentPersonalModel.setS_name(rs.getString("s_name"));
+                studentPersonalModel.setF_name(rs.getString("f_name"));
+                studentPersonalModel.setL_name(rs.getString("l_name"));
+                studentPersonalModel.setGender(rs.getString("gender"));
+                studentPersonalModel.setNumber(rs.getString("number"));
+                studentPersonalModel.setLocation(rs.getString("location"));
+                studentPersonalModel.setDob(rs.getDate("dob"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.closeConnection(conn);
+        }
+
+        return studentPersonalModel;
+    }
+
+    //check if student has been allocated
+    public int checkAllocation(String id) {
+
+        int a = 0;
+
+        String query = "SELECT * FROM student_sponsor WHERE student = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                a = 1;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            DBUtil.closeConnection(conn);
+        }
+
+        return a;
+
+    }
+
+    public List<SponosorModel> getAllocatedSponsor(String id) {
+
+        List<SponosorModel> list = new ArrayList<>();
         
-        return exists;
+        String query = "SELECT sponsor FROM student_sponsor WHERE student = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                String query2 = "SELECT * FROM Sponsor WHERE sponsor_id = ?";
+                PreparedStatement p = conn.prepareStatement(query2);
+                p.setString(1, rs.getString("sponsor"));
+
+                ResultSet r = p.executeQuery();
+
+                if (r.next()) {
+                    SponosorModel sponosorModel = new SponosorModel();
+                    sponosorModel.setName(r.getString("name"));
+                    sponosorModel.setEmail(r.getString("email"));
+                    sponosorModel.setNumber(r.getString("mobile"));
+                    list.add(sponosorModel);
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+     public List<SocialWorkerMOdel> getAllocatedSocialWorker(String id) {
+
+        List<SocialWorkerMOdel> list = new ArrayList<>();
+        
+        String query = "SELECT social FROM student_sponsor WHERE student = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                String query2 = "SELECT * FROM social_worker WHERE email = ?";
+                PreparedStatement p = conn.prepareStatement(query2);
+                p.setString(1, rs.getString("social"));
+
+                ResultSet r = p.executeQuery();
+
+                if (r.next()) {
+                    
+                    SocialWorkerMOdel sponosorModel = new SocialWorkerMOdel();
+                    sponosorModel.setName(r.getString("name"));
+                    sponosorModel.setEmail(r.getString("email"));
+                    sponosorModel.setMobile(r.getString("number"));
+                    list.add(sponosorModel);
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+       public List<SocialWorkerMOdel> getAllocatedAcc(String id) {
+
+        List<SocialWorkerMOdel> list = new ArrayList<>();
+        
+        String query = "SELECT acc FROM student_sponsor WHERE student = ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, id);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
+
+                String query2 = "SELECT * FROM accountant WHERE email = ?";
+                PreparedStatement p = conn.prepareStatement(query2);
+                p.setString(1, rs.getString("acc"));
+
+                ResultSet r = p.executeQuery();
+
+                if (r.next()) {
+                    
+                    SocialWorkerMOdel sponosorModel = new SocialWorkerMOdel();
+                    sponosorModel.setName(r.getString("name"));
+                    sponosorModel.setEmail(r.getString("email"));
+                    sponosorModel.setMobile(r.getString("number"));
+                    list.add(sponosorModel);
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
     }
 
 }

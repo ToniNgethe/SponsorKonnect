@@ -42,18 +42,18 @@ public class SocialWorkerServlet extends HttpServlet {
             String current_fam = request.getParameter("current_compo");
             String etnicity = request.getParameter("student_ethnicity");
             String health = request.getParameter("student_health");
-
+            String term = request.getParameter("socialTerm");
             if (!stud_id.isEmpty()) {
 
                 if (!social.isEmpty()) {
 
-                    if (!date.isEmpty() && !fam_bg.isEmpty() && !current_fam.isEmpty() && !etnicity.isEmpty() && !health.isEmpty()) {
+                    if (!date.isEmpty() && !fam_bg.isEmpty() && !current_fam.isEmpty() && !etnicity.isEmpty() && !health.isEmpty() && term != "") {
 
                         //check if report already made this month;
                         if (!socialWorker.checkReport(stud_id)) {
                             //  public boolean fileReport(String stud_id, String social, String bg, String composition, String ethnicity, String health){
                             //add
-                            if (socialWorker.fileReport(stud_id, social, fam_bg, current_fam, etnicity, health, date)) {
+                            if (socialWorker.fileReport(stud_id, social, fam_bg, current_fam, etnicity, health, date,term)) {
                                 out.print("  <div id='err' class='alert alert-success' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;'>Report submited successfully</div>");
                             } else {
                                 out.print("  <div id='err' class='alert alert-danger' role='alert' style='margin-right: 20px; margin-left: 20px; margin-top: 10px;'>Error in submiting assessment report</div>");

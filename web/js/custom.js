@@ -581,10 +581,7 @@ $(document).ready(function () {
     //submit selected school info
     $('#btnSelectedSchool').click(function (event) {
         event.preventDefault();
-
-
         swal({
-
             text: "Confirm before submitting",
             type: 'warning',
             showCancelButton: true,
@@ -603,7 +600,6 @@ $(document).ready(function () {
                             result,
                             'info'
                             );
-                  
                 },
                 error: function (result) {
                     swal(

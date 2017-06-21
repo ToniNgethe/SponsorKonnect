@@ -123,11 +123,11 @@ public class SocialWorker {
         return exists;
   }
   
-  public boolean fileReport(String stud_id, String social, String bg, String composition, String ethnicity, String health, String date){
+  public boolean fileReport(String stud_id, String social, String bg, String composition, String ethnicity, String health, String date, String term){
       boolean isSuccess = false;
       
-      String query = "INSERT INTO `SocialVisits`(`stud_id`, `social_worker`, `background`, `composition`, `ethnicity`, `health`, `date`)"
-              + " VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+      String query = "INSERT INTO `SocialVisits`(`stud_id`, `social_worker`, `background`, `composition`, `ethnicity`, `health`, `date`, `term`)"
+              + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
       
         try {
             pst = conn.prepareStatement(query);
@@ -138,6 +138,7 @@ public class SocialWorker {
             pst.setString(5, ethnicity);
             pst.setString(6, health);
             pst.setString(7, date);
+            pst.setString(8, term);
             
             
             int a = pst.executeUpdate();

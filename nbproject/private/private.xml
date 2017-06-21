@@ -20,8 +20,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AdminPanel.jsp</file>
-            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/AccountantPanel.jsp</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/src/java/dao/Student.java</file>
+            <file>file:/home/toni/NetBeansProjects/SponsorKonnect/web/StudentPaAfterReg.jsp</file>
         </group>
     </open-files>
 </project-private>

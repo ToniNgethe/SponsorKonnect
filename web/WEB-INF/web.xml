@@ -168,6 +168,14 @@
         <servlet-name>CheckAllData</servlet-name>
         <servlet-class>Controla.CheckAllData</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentPanelServlets</servlet-name>
+        <servlet-class>Controla.StudentPanelServlets</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TermlyReportsServlet</servlet-name>
+        <servlet-class>Controla.TermlyReportsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>StudentRegister</servlet-name>
         <url-pattern>/StudentRegister</url-pattern>
@@ -335,6 +343,14 @@
     <servlet-mapping>
         <servlet-name>CheckAllData</servlet-name>
         <url-pattern>/CheckAllData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentPanelServlets</servlet-name>
+        <url-pattern>/StudentPanelServlets</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TermlyReportsServlet</servlet-name>
+        <url-pattern>/TermlyReportsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
