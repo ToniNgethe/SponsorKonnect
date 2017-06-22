@@ -226,7 +226,7 @@
                         <div class="col s8" style="margin-top: 5%;">
                             <div class="card-panel">
                                 <div id="account_reports">
-                                    
+
                                 </div>
                             </div>
 
@@ -238,19 +238,7 @@
                 <script>
 
                     function getAccountatAllocation() {
-                        $.ajax({
-                            type: 'POST',
-                            data: {stud_id: '<%= id%>'},
-                            url: "GetStudentSocialReport?action=acc",
-                            success: function (result) {
-                                //Materialize.toast(result, 3000);
-                                $("#account_reports").html(result);
-                            },
-                            error: function (result) {
-                                swal('oops', result, 'error');
-                            }
 
-                        });
                     }
 
                     function getFirsTermReport() {
@@ -378,6 +366,20 @@
                                 }
                             });
 
+//ACCOUNT ALLOCATIONS
+                            $.ajax({
+                                type: 'POST',
+                                data: {stud_id: '<%= id%>'},
+                                url: "GetStudentSocialReport?action=acc",
+                                success: function (result) {
+                                    //Materialize.toast(result, 3000);
+                                    $("#account_reports").html(result);
+                                },
+                                error: function (result) {
+                                    swal('oops', result, 'error');
+                                }
+
+                            });
 
                         }
                     });
